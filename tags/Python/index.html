@@ -129,64 +129,30 @@
       7月 5, 2017
     </time>
 		
+    
+    <div class='cats'>
+        <a href="/categories/Python/">Python</a>
+    </div>
+
   </section>
   <section class="article typo">
 	  <p>鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。</p>
 <h1 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h1><h2 id="p4"><a href="#p4" class="headerlink" title="p4"></a>p4</h2><ul>
 <li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。</li>
 </ul>
-<h2 id="p5"><a href="#p5" class="headerlink" title="p5"></a>p5</h2><ul>
-<li>collections: 包含一些数据类型，例如namedtuple等。</li>
-</ul>
-<p>参考: <a href="http://www.zlovezl.cn/articles/collections-in-python/" target="_blank" rel="external">http://www.zlovezl.cn/articles/collections-in-python/</a></p>
-<ul>
-<li>collections.namedtuple(): 构建一个可以用名称取值的tuple，例如：<pre class=" language-python"><code class="language-python">Point <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Point'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-point <span class="token operator">=</span> Point<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>point<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
-</code></pre>
-参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></li>
-<li>例子1-1：</li>
-</ul>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> collections
 
-
-Card <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Card'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rank'</span><span class="token punctuation">,</span> <span class="token string">'suit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token keyword">class</span> <span class="token class-name">FrenchDeck</span><span class="token punctuation">:</span>
-    ranks <span class="token operator">=</span> <span class="token punctuation">[</span>str<span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token keyword">for</span> n <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> list<span class="token punctuation">(</span><span class="token string">'JQKA'</span><span class="token punctuation">)</span>
-    suits <span class="token operator">=</span> <span class="token string">'spades diamonds clubs hearts'</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>_cards <span class="token operator">=</span> <span class="token punctuation">[</span>Card<span class="token punctuation">(</span>rank<span class="token punctuation">,</span> suit<span class="token punctuation">)</span> <span class="token keyword">for</span> suit <span class="token keyword">in</span> self<span class="token punctuation">.</span>suits <span class="token keyword">for</span> rank <span class="token keyword">in</span> self<span class="token punctuation">.</span>ranks<span class="token punctuation">]</span>
-
-    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_cards<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> position<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_cards<span class="token punctuation">[</span>position<span class="token punctuation">]</span>
-</code></pre>
-<p>其中，使用collections.namedtuple建立了一张扑克牌的模型，FrenchDeck则建立了所有的扑克牌。<br>此时在Python shell中输入：</p>
-<pre><code>&gt;&gt;&gt; deck[3]
-</code></pre><p>会得到如下结果：</p>
-<pre><code>Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
-</code></pre><p>这是由<code>__getitem__</code>方法提供的。</p>
-<ul>
-<li>对于Python数据模型来说，special method 的优点：<ol>
-<li>统一标准操作（例如，用户不需要记住每种数据模型对应的获取长度的方法是<code>.size()</code>还是<code>.length()</code>）。</li>
-<li>通过提供统一的special method，可以丰富Python标准库（例如上述的random.rich），也可以支持Python中包含的运算符操作（例如FrenchDeck支持迭代，也支持[]操作符）。</li>
-</ol>
-</li>
-<li>使用<code>in</code>操作时，如果数据模型没有实现<code>__contains__</code>方法，Python会进行顺序扫描。</li>
-<li>目前的<code>_cards</code>中扑克牌序列是不能被打乱的，在Chapter 11中会介绍<code>__setitem__</code>方法来实现。</li>
-</ul>
-
-
+    
+	  <div class="readmore">
+      <a href="/2017/07/05/FluentPython笔记0x00/">Read More</a>
+    </div>
     
     
     
 	  <div class="full-width auto-padding tags">
       
         <a href="/tags/Python/">Python</a>
+      
+        <a href="/tags/笔记/">笔记</a>
       
 	  </div>
     
@@ -206,13 +172,20 @@ Card <span class="token operator">=</span> collections<span class="token punctua
 
 <div class='header'>SinLapis</div>
 <div class='content'>
-<div class='desc'>Tempora mutantur, nos et mutamur in illis ...</div>
+<div class='desc'>あなたは今とこで何をしていますか？この空の续く场所にいますか？</div>
 </div>
 </section>
+
 
   <section class='m_widget categories'>
 <div class='header'>Categories</div>
 <div class='content'>
+    
+    <ul class="entry">
+    
+        <li><a class="flat-box" href="/categories/Python/"><div class='name'>Python</div><div class='badget'>1</div></a></li>
+    
+    </ul>
     
 </div>
 </section>
@@ -236,9 +209,9 @@ Card <span class="token operator">=</span> collections<span class="token punctua
           <span class="icon icon-twitter"></span>
         </a>
       
-        <a href="https://plus.google.com/+SinLapis" class="social googleplus"
+        <a href="https://plus.google.com/+SinLapis" class="social google"
           target="_blank" rel="external">
-          <span class="icon icon-googleplus"></span>
+          <span class="icon icon-google"></span>
         </a>
       
     

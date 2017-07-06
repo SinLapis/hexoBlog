@@ -12,17 +12,17 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="SinLapis的博客">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。 Chapter 1p4 Python中类似于__getitem__这种方法称为special method，作者称其为“dunder-getitem”。此外，类似__x是有其他含义的。  p5 collections: 包含一些数据类型，例如namedtuple等。  参考: http://www.zlovezl.">
-<meta name="keywords" content="Python">
+  <meta name="description" content="鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。 Chapter 1p4 Python中类似于__getitem__这种方法称为special method，作者称其为“dunder-getitem”。此外，类似__x是有其他含义的。">
+<meta name="keywords" content="Python,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fluent Python笔记0x00">
 <meta property="og:url" content="http://yoursite.com/2017/07/05/FluentPython笔记0x00/index.html">
 <meta property="og:site_name" content="SinLapis的博客">
-<meta property="og:description" content="鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。 Chapter 1p4 Python中类似于__getitem__这种方法称为special method，作者称其为“dunder-getitem”。此外，类似__x是有其他含义的。  p5 collections: 包含一些数据类型，例如namedtuple等。  参考: http://www.zlovezl.">
-<meta property="og:updated_time" content="2017-07-06T01:36:11.538Z">
+<meta property="og:description" content="鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。 Chapter 1p4 Python中类似于__getitem__这种方法称为special method，作者称其为“dunder-getitem”。此外，类似__x是有其他含义的。">
+<meta property="og:updated_time" content="2017-07-06T03:43:46.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fluent Python笔记0x00">
-<meta name="twitter:description" content="鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。 Chapter 1p4 Python中类似于__getitem__这种方法称为special method，作者称其为“dunder-getitem”。此外，类似__x是有其他含义的。  p5 collections: 包含一些数据类型，例如namedtuple等。  参考: http://www.zlovezl.">
+<meta name="twitter:description" content="鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。 Chapter 1p4 Python中类似于__getitem__这种方法称为special method，作者称其为“dunder-getitem”。此外，类似__x是有其他含义的。">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -126,6 +126,11 @@
 	  7月 5, 2017
 	</time>
 	
+    
+    <div class='cats'>
+        <a href="/categories/Python/">Python</a>
+    </div>
+
 	</section>
 	
 		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-1"><span class="toc-number">1.</span> <span class="toc-text">Chapter 1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#p4"><span class="toc-number">1.1.</span> <span class="toc-text">p4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#p5"><span class="toc-number">1.2.</span> <span class="toc-text">p5</span></a></li></ol></li></ol></section>
@@ -136,19 +141,25 @@
 <h1 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h1><h2 id="p4"><a href="#p4" class="headerlink" title="p4"></a>p4</h2><ul>
 <li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。</li>
 </ul>
+<a id="more"></a>
 <h2 id="p5"><a href="#p5" class="headerlink" title="p5"></a>p5</h2><ul>
 <li>collections: 包含一些数据类型，例如namedtuple等。</li>
 </ul>
 <p>参考: <a href="http://www.zlovezl.cn/articles/collections-in-python/" target="_blank" rel="external">http://www.zlovezl.cn/articles/collections-in-python/</a></p>
 <ul>
-<li>collections.namedtuple(): 构建一个可以用名称取值的tuple，例如：<pre class=" language-python"><code class="language-python">Point <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Point'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<li>collections.namedtuple(): 构建一个可以用名称取值的tuple，例如：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+Point <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Point'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 point <span class="token operator">=</span> Point<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>point<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
 </code></pre>
-参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></li>
+<p>参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></p>
+<ul>
 <li>例子1-1：</li>
 </ul>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> collections
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">import</span> collections
 
 
 Card <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Card'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rank'</span><span class="token punctuation">,</span> <span class="token string">'suit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
@@ -187,18 +198,11 @@ Card <span class="token operator">=</span> collections<span class="token punctua
       
         <a href="/tags/Python/">Python</a>
       
+        <a href="/tags/笔记/">笔记</a>
+      
 	  </div>
     
 		
-	
-		<div class="art-item-footer">
-				
-				
-					<span class="art-item-right">next：<a href="/2017/06/27/hello-hexo/" rel="next"  title="hello hexo">
-						hello hexo
-					</a><i class="icon icon-chevron-thin-right"></i></span>
-				
-		</div>
 	
 	</section>
 	
@@ -219,13 +223,20 @@ Card <span class="token operator">=</span> collections<span class="token punctua
 
 <div class='header'>SinLapis</div>
 <div class='content'>
-<div class='desc'>Tempora mutantur, nos et mutamur in illis ...</div>
+<div class='desc'>あなたは今とこで何をしていますか？この空の续く场所にいますか？</div>
 </div>
 </section>
+
 
   <section class='m_widget categories'>
 <div class='header'>Categories</div>
 <div class='content'>
+    
+    <ul class="entry">
+    
+        <li><a class="flat-box" href="/categories/Python/"><div class='name'>Python</div><div class='badget'>1</div></a></li>
+    
+    </ul>
     
 </div>
 </section>
@@ -249,9 +260,9 @@ Card <span class="token operator">=</span> collections<span class="token punctua
           <span class="icon icon-twitter"></span>
         </a>
       
-        <a href="https://plus.google.com/+SinLapis" class="social googleplus"
+        <a href="https://plus.google.com/+SinLapis" class="social google"
           target="_blank" rel="external">
-          <span class="icon icon-googleplus"></span>
+          <span class="icon icon-google"></span>
         </a>
       
     

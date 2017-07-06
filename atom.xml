@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-06T01:36:11.538Z</updated>
+  <updated>2017-07-06T03:43:46.499Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,25 +20,31 @@
     <link href="http://yoursite.com/2017/07/05/FluentPython%E7%AC%94%E8%AE%B00x00/"/>
     <id>http://yoursite.com/2017/07/05/FluentPython笔记0x00/</id>
     <published>2017-07-05T07:28:36.000Z</published>
-    <updated>2017-07-06T01:36:11.538Z</updated>
+    <updated>2017-07-06T03:43:46.499Z</updated>
     
     <content type="html"><![CDATA[<p>鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。</p>
 <h1 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h1><h2 id="p4"><a href="#p4" class="headerlink" title="p4"></a>p4</h2><ul>
 <li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。</li>
 </ul>
+<a id="more"></a>
 <h2 id="p5"><a href="#p5" class="headerlink" title="p5"></a>p5</h2><ul>
 <li>collections: 包含一些数据类型，例如namedtuple等。</li>
 </ul>
 <p>参考: <a href="http://www.zlovezl.cn/articles/collections-in-python/" target="_blank" rel="external">http://www.zlovezl.cn/articles/collections-in-python/</a></p>
 <ul>
-<li>collections.namedtuple(): 构建一个可以用名称取值的tuple，例如：<pre class=" language-python"><code class="language-python">Point <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Point'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<li>collections.namedtuple(): 构建一个可以用名称取值的tuple，例如：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+Point <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Point'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 point <span class="token operator">=</span> Point<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>point<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
 </code></pre>
-参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></li>
+<p>参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></p>
+<ul>
 <li>例子1-1：</li>
 </ul>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> collections
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">import</span> collections
 
 
 Card <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Card'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rank'</span><span class="token punctuation">,</span> <span class="token string">'suit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
@@ -75,63 +81,18 @@ Card <span class="token operator">=</span> collections<span class="token punctua
     <summary type="html">
     
       &lt;p&gt;鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。&lt;/p&gt;
-&lt;h1 id=&quot;Chapter-1&quot;&gt;&lt;a href=&quot;#Chapter-1&quot; class=&quot;headerlink&quot; title=&quot;Chapter 1&quot;&gt;&lt;/a&gt;Chapter 1&lt;
+&lt;h1 id=&quot;Chapter-1&quot;&gt;&lt;a href=&quot;#Chapter-1&quot; class=&quot;headerlink&quot; title=&quot;Chapter 1&quot;&gt;&lt;/a&gt;Chapter 1&lt;/h1&gt;&lt;h2 id=&quot;p4&quot;&gt;&lt;a href=&quot;#p4&quot; class=&quot;headerlink&quot; title=&quot;p4&quot;&gt;&lt;/a&gt;p4&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Python中类似于&lt;code&gt;__getitem__&lt;/code&gt;这种方法称为special method，作者称其为“dunder-getitem”。此外，类似&lt;code&gt;__x&lt;/code&gt;是有其他含义的。&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
     
     
       <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
     
-  </entry>
-  
-  <entry>
-    <title>hello hexo</title>
-    <link href="http://yoursite.com/2017/06/27/hello-hexo/"/>
-    <id>http://yoursite.com/2017/06/27/hello-hexo/</id>
-    <published>2017-06-27T03:18:00.000Z</published>
-    <updated>2017-06-27T03:19:54.140Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><p>这是一篇用来测试的文章~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;test&quot;&gt;&lt;a href=&quot;#test&quot; class=&quot;headerlink&quot; title=&quot;test&quot;&gt;&lt;/a&gt;test&lt;/h1&gt;&lt;p&gt;这是一篇用来测试的文章~&lt;/p&gt;
-
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2017/06/20/hello-world/"/>
-    <id>http://yoursite.com/2017/06/20/hello-world/</id>
-    <published>2017-06-20T06:41:20.325Z</published>
-    <updated>2017-06-20T06:41:20.326Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
+      <category term="笔记" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
