@@ -1,137 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>SinLapis的博客</title>
   
-  <title>Tag: Python | SinLapis的博客</title>
-  <meta name="description" content="null" />
-  <meta name="keywords" content="" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="shortcut icon" href="/">
-  <link rel="alternate" href="/atom.xml" title="SinLapis的博客">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SinLapis的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Python/index.html">
-<meta property="og:site_name" content="SinLapis的博客">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SinLapis的博客">
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-07-06T01:36:11.538Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>SinLapis</name>
     
-  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="/style.css">
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
-<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
-
-<body>
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-
-
-  <script>setLoadingBarProgress(20)</script> 
-  <header class="l_header">
-	<div class='wrapper'>
-		<div class="nav-main container container--flex">
-			<a class="logo flat-box" href='/' >
-				SinLapis的博客
-			</a>
-			<div class='menu'>
-				<ul class='h-list'>
-					
-						<li>
-							<a class='flat-box nav-home' href='/'>
-								Home
-							</a>
-						</li>
-					
-						<li>
-							<a class='flat-box nav-archives' href='/archives'>
-								Archives
-							</a>
-						</li>
-					
-				</ul>
-				<div class='underline'></div>
-			</div>
-			
-				<div class="m_search">
-					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="Search" />
-						<span class="icon icon-search"></span>
-					</form>
-				</div>
-			
-			<ul class='switcher h-list'>
-				
-					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
-				
-				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
-			</ul>
-		</div>
-		
-		<div class='nav-sub container container--flex'>
-			<a class="logo" class="flat-box" href='javascript:void(0)'>
-				Word of Forks
-			</a>
-
-			<ul class='switcher h-list'>
-				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
-				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
-				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
-			</ul>
-		</div>
-	</div>
-</header>
-<aside class="menu-phone">
-	<nav>
-		
-			<a href="/" class="nav-home nav">
-				Home
-			</a>
-		
-			<a href="/archives" class="nav-archives nav">
-				Archives
-			</a>
-		
-	</nav>
-</aside>
-
-    <script>setLoadingBarProgress(40);</script>
-  <div class="l_body">
-    <div class='container clearfix'>
-      <div class='l_main'>
-        
-  <script>
-    window.subData= { title:'Tag : Python'}
-  </script>
-
-<section class="post-list">
-	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Fluent Python笔记0x00</title>
+    <link href="http://yoursite.com/2017/07/05/FluentPython%E7%AC%94%E8%AE%B00x00/"/>
+    <id>http://yoursite.com/2017/07/05/FluentPython笔记0x00/</id>
+    <published>2017-07-05T07:28:36.000Z</published>
+    <updated>2017-07-06T01:36:11.538Z</updated>
     
-    <h2 class="title">
-      <a href="/2017/07/05/FluentPython笔记0x00/">
-        Fluent Python笔记0x00
-      </a>
-    </h2>
-    
-    <time>
-      7月 5, 2017
-    </time>
-		
-  </section>
-  <section class="article typo">
-	  <p>鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。</p>
+    <content type="html"><![CDATA[<p>鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。</p>
 <h1 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h1><h2 id="p4"><a href="#p4" class="headerlink" title="p4"></a>p4</h2><ul>
 <li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。</li>
 </ul>
@@ -179,101 +70,69 @@ Card <span class="token operator">=</span> collections<span class="token punctua
 <li>使用<code>in</code>操作时，如果数据模型没有实现<code>__contains__</code>方法，Python会进行顺序扫描。</li>
 <li>目前的<code>_cards</code>中扑克牌序列是不能被打乱的，在Chapter 11中会介绍<code>__setitem__</code>方法来实现。</li>
 </ul>
-
-
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。&lt;/p&gt;
+&lt;h1 id=&quot;Chapter-1&quot;&gt;&lt;a href=&quot;#Chapter-1&quot; class=&quot;headerlink&quot; title=&quot;Chapter 1&quot;&gt;&lt;/a&gt;Chapter 1&lt;
+    
+    </summary>
     
     
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
     
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Python/">Python</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
+  </entry>
   
-</section>
-
-
-      </div>
-      <aside class='l_side'>
-        
-  <section class='m_widget about'>
-
-<img class='avatar waves-image' src='http://wx4.sinaimg.cn/mw690/872f2373gy1fh9xgg2igyj20cm0cm3zw.jpg' />
-
-<div class='header'>SinLapis</div>
-<div class='content'>
-<div class='desc'>Tempora mutantur, nos et mutamur in illis ...</div>
-</div>
-</section>
-
-  <section class='m_widget categories'>
-<div class='header'>Categories</div>
-<div class='content'>
+  <entry>
+    <title>hello hexo</title>
+    <link href="http://yoursite.com/2017/06/27/hello-hexo/"/>
+    <id>http://yoursite.com/2017/06/27/hello-hexo/</id>
+    <published>2017-06-27T03:18:00.000Z</published>
+    <updated>2017-06-27T03:19:54.140Z</updated>
     
-</div>
-</section>
-
-      </aside>
-      <script>setLoadingBarProgress(60);</script>
-    </div>
-  </div>
-  <footer id="footer" class="clearfix">
-
-	<div class="social-wrapper">
-  	
-      
-        <a href="https://github.com/SinLapis" class="social github"
-          target="_blank" rel="external">
-          <span class="icon icon-github"></span>
-        </a>
-      
-        <a href="https://twitter.com/_SinLapis_" class="social twitter"
-          target="_blank" rel="external">
-          <span class="icon icon-twitter"></span>
-        </a>
-      
-        <a href="https://plus.google.com/+SinLapis" class="social googleplus"
-          target="_blank" rel="external">
-          <span class="icon icon-googleplus"></span>
-        </a>
-      
+    <content type="html"><![CDATA[<h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><p>这是一篇用来测试的文章~</p>
+]]></content>
     
-  </div>
+    <summary type="html">
+    
+      &lt;h1 id=&quot;test&quot;&gt;&lt;a href=&quot;#test&quot; class=&quot;headerlink&quot; title=&quot;test&quot;&gt;&lt;/a&gt;test&lt;/h1&gt;&lt;p&gt;这是一篇用来测试的文章~&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
   
-  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2017/06/20/hello-world/"/>
+    <id>http://yoursite.com/2017/06/20/hello-world/</id>
+    <published>2017-06-20T06:41:20.325Z</published>
+    <updated>2017-06-20T06:41:20.326Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
   
-</footer>
-
-
-  <script>setLoadingBarProgress(80);</script>
-  
-
-<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
-<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
-<script src="/js/jquery.fitvids.js"></script>
-<script>
-	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
-	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
-	var ALGOLIA_API_KEY = "";
-	var ALGOLIA_APP_ID = "";
-	var ALGOLIA_INDEX_NAME = "";
-  var AZURE_SERVICE_NAME = "";
-  var AZURE_INDEX_NAME = "";
-  var AZURE_QUERY_KEY = "";
-  var BAIDU_API_ID = "";
-  var SEARCH_SERVICE = "hexo";
-  var ROOT = "/"||"/";
-  if(!ROOT.endsWith('/'))ROOT += '/';
-</script>
-<script src="/js/search.js"></script>
-<script src="/js/app.js"></script>
-
-
-  <script>setLoadingBarProgress(100);</script>
-</body>
-</html>
+</feed>
