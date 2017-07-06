@@ -287,7 +287,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
     
@@ -485,22 +485,43 @@
     
         <p>鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。</p>
 <h1 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h1><h2 id="p4"><a href="#p4" class="headerlink" title="p4"></a>p4</h2><ul>
-<li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。<h2 id="p5"><a href="#p5" class="headerlink" title="p5"></a>p5</h2></li>
+<li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。</li>
+</ul>
+<h2 id="p5"><a href="#p5" class="headerlink" title="p5"></a>p5</h2><ul>
 <li>collections: 包含一些数据类型，例如namedtuple等。</li>
 </ul>
 <p>参考: <a href="http://www.zlovezl.cn/articles/collections-in-python/" target="_blank" rel="external">http://www.zlovezl.cn/articles/collections-in-python/</a></p>
 <ul>
-<li>collections.namedtuple()[^2x]: 构建一个可以用名称取值的tuple，例如：<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Point = collections.namedtuple(<span class="string">'Point'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</div><div class="line">point = Point(<span class="number">1</span>, <span class="number">2</span>)</div><div class="line">print(point.x)</div></pre></td></tr></table></figure>
-</li>
+<li>collections.namedtuple(): 构建一个可以用名称取值的tuple，例如：<pre class=" language-python"><code class="language-python">Point <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Point'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+point <span class="token operator">=</span> Point<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>point<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+</code></pre>
+参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></li>
+<li>例子1-1：</li>
 </ul>
-<p>参考: <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001411031239400f7181f65f33a4623bc42276a605debf6000</a></p>
-<ul>
-<li>例子1-1：<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> collections</div><div class="line"></div><div class="line"></div><div class="line">Card = collections.namedtuple(<span class="string">'Card'</span>, [<span class="string">'rank'</span>, <span class="string">'suit'</span>])</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></div><div class="line">    ranks = [str(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">11</span>)] + list(<span class="string">'JQKA'</span>)</div><div class="line">    suits = <span class="string">'spades diamonds clubs hearts'</span>.split()</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits <span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> len(self._cards)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, position)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._cards[position]</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>其中，使用collections.namedtuple建立了一张扑克牌的模型，FrenchDeck则建立了所有的扑克牌。<br>此时在Python shell中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; deck[3]</div></pre></td></tr></table></figure></p>
-<p>会得到如下结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Card(rank=&apos;K&apos;, suit=&apos;hearts&apos;)</div></pre></td></tr></table></figure></p>
-<p>这是由<code>__getitem__</code>方法提供的。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> collections
+
+
+Card <span class="token operator">=</span> collections<span class="token punctuation">.</span>namedtuple<span class="token punctuation">(</span><span class="token string">'Card'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'rank'</span><span class="token punctuation">,</span> <span class="token string">'suit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">FrenchDeck</span><span class="token punctuation">:</span>
+    ranks <span class="token operator">=</span> <span class="token punctuation">[</span>str<span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token keyword">for</span> n <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> list<span class="token punctuation">(</span><span class="token string">'JQKA'</span><span class="token punctuation">)</span>
+    suits <span class="token operator">=</span> <span class="token string">'spades diamonds clubs hearts'</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_cards <span class="token operator">=</span> <span class="token punctuation">[</span>Card<span class="token punctuation">(</span>rank<span class="token punctuation">,</span> suit<span class="token punctuation">)</span> <span class="token keyword">for</span> suit <span class="token keyword">in</span> self<span class="token punctuation">.</span>suits <span class="token keyword">for</span> rank <span class="token keyword">in</span> self<span class="token punctuation">.</span>ranks<span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_cards<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> position<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_cards<span class="token punctuation">[</span>position<span class="token punctuation">]</span>
+</code></pre>
+<p>其中，使用collections.namedtuple建立了一张扑克牌的模型，FrenchDeck则建立了所有的扑克牌。<br>此时在Python shell中输入：</p>
+<pre><code>&gt;&gt;&gt; deck[3]
+</code></pre><p>会得到如下结果：</p>
+<pre><code>Card(rank=&#39;K&#39;, suit=&#39;hearts&#39;)
+</code></pre><p>这是由<code>__getitem__</code>方法提供的。</p>
 <ul>
 <li>对于Python数据模型来说，special method 的优点：<ol>
 <li>统一标准操作（例如，用户不需要记住每种数据模型对应的获取长度的方法是<code>.size()</code>还是<code>.length()</code>）。</li>
