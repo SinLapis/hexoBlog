@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>SinLapis的博客</title>
+  <title>VMWare共享文件夹设置 | SinLapis的博客</title>
   <meta name="description" content="null" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,12 +12,17 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="SinLapis的博客">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SinLapis的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="参考：http://www.itread01.com/articles/1476103217.html 讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。使用VMWare的共享文件夹是个好方法。虚拟机为CentOS7。">
+<meta name="keywords" content="Linux,VMWare">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VMWare共享文件夹设置">
+<meta property="og:url" content="http://yoursite.com/2017/07/19/VMWare共享文件夹设置/index.html">
 <meta property="og:site_name" content="SinLapis的博客">
+<meta property="og:description" content="参考：http://www.itread01.com/articles/1476103217.html 讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。使用VMWare的共享文件夹是个好方法。虚拟机为CentOS7。">
+<meta property="og:updated_time" content="2017-07-19T02:30:51.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SinLapis的博客">
+<meta name="twitter:title" content="VMWare共享文件夹设置">
+<meta name="twitter:description" content="参考：http://www.itread01.com/articles/1476103217.html 讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。使用VMWare的共享文件夹是个好方法。虚拟机为CentOS7。">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -108,41 +113,83 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        
-<section class="post-list">
+        <article id="post-VMWare共享文件夹设置"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2017/07/19/VMWare共享文件夹设置/">
+    	VMWare共享文件夹设置
+    </a>
+  </h2>
+	<time>
+	  7月 19, 2017
+	</time>
 	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/07/19/VMWare共享文件夹设置/">
-        VMWare共享文件夹设置
-      </a>
-    </h2>
-    
-    <time>
-      7月 19, 2017
-    </time>
-		
     
     <div class='cats'>
         <a href="/categories/Linux/">Linux</a>
     </div>
 
-  </section>
-  <section class="article typo">
-	  <p>参考：<a href="http://www.itread01.com/articles/1476103217.html" target="_blank" rel="external">http://www.itread01.com/articles/1476103217.html</a></p>
+	</section>
+	
+		<section class="toc-wrapper"></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>参考：<a href="http://www.itread01.com/articles/1476103217.html" target="_blank" rel="external">http://www.itread01.com/articles/1476103217.html</a></p>
 <p>讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。<br>使用VMWare的共享文件夹是个好方法。<br>虚拟机为CentOS7。</p>
+<a id="more"></a>
+<p>首先给Windows和Linux虚拟机均安装VMWare Tools，下面为Linux下安装VMWare Tools：</p>
+<pre class=" language-shell"><code class="language-shell">
+yum install open-vm-tools open-vm-tools-desktop
+</code></pre>
+<p>配置服务：</p>
+<pre class=" language-shell"><code class="language-shell">
+vi /etc/systemd/system/mnt.hgfs.service
+</code></pre>
+<p>内容为：</p>
+<pre><code>
+[Unit]
 
-    
-	  <div class="readmore">
-      <a href="/2017/07/19/VMWare共享文件夹设置/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+Description=Load VMware shared folders
+
+Requires=vmware-vmblock-fuse.service
+
+After=vmware-vmblock-fuse.service
+
+ConditionPathExists=.host:/
+
+ConditionVirtualization=vmware
+
+
+[Service]
+
+Type=oneshot
+
+RemainAfterExit=yes
+
+ExecStart=
+
+ExecStart=/usr/bin/vmhgfs-fuse -o allow_other -o auto_unmount .host:/ /mnt/hgfs
+
+
+[Install]
+
+WantedBy=multi-user.target
+</code></pre><p>保存然后启动服务：</p>
+<pre class=" language-shell"><code class="language-shell">
+systemctl enable mnt.hgfs.service
+</code></pre>
+<p>创建挂载文件夹：</p>
+<pre class=" language-shell"><code class="language-shell">
+mkdir -p /mnt/hgfs
+</code></pre>
+<p>重启虚拟机应该就能看到共享的文件夹了。</p>
+
+  	</div>
+	  
+	  <div class="article-tags tags">
       
         <a href="/tags/Linux/">Linux</a>
       
@@ -150,99 +197,26 @@
       
 	  </div>
     
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/07/13/gal填坑进度0x00/">
-        gal填坑进度0x00
-      </a>
-    </h2>
-    
-    <time>
-      7月 13, 2017
-    </time>
 		
-    
-    <div class='cats'>
-        <a href="/categories/ACG/">ACG</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……<br>目前还能想到的坑：</p>
-
-    
-	  <div class="readmore">
-      <a href="/2017/07/13/gal填坑进度0x00/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/ACG/">ACG</a>
-      
-        <a href="/tags/galgame/">galgame</a>
-      
-	  </div>
-    
-  </section>
+	
+		<div class="art-item-footer">
+				
+				
+					<span class="art-item-right">next：<a href="/2017/07/13/gal填坑进度0x00/" rel="next"  title="gal填坑进度0x00">
+						gal填坑进度0x00
+					</a><i class="icon icon-chevron-thin-right"></i></span>
+				
+		</div>
+	
+	</section>
+	
 </article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2017/07/05/FluentPython笔记0x00/">
-        Fluent Python笔记0x00
-      </a>
-    </h2>
-    
-    <time>
-      7月 5, 2017
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Python/">Python</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>鬼使神差地买了一本英文的，想想还是写个笔记。版本为东南大学的影印版，原版***贵。</p>
-<h1 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h1><h2 id="p4"><a href="#p4" class="headerlink" title="p4"></a>p4</h2><ul>
-<li>Python中类似于<code>__getitem__</code>这种方法称为special method，作者称其为“dunder-getitem”。此外，类似<code>__x</code>是有其他含义的。</li>
-</ul>
-
-    
-	  <div class="readmore">
-      <a href="/2017/07/05/FluentPython笔记0x00/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/Python/">Python</a>
-      
-        <a href="/tags/笔记/">笔记</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-</section>
-
+<script>
+	window.subData = {
+		title: 'VMWare共享文件夹设置',
+		tools: true
+	}
+</script>
 
       </div>
       <aside class='l_side'>

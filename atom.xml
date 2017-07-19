@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-13T03:06:05.681Z</updated>
+  <updated>2017-07-19T02:30:51.858Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,85 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>VMWare共享文件夹设置</title>
+    <link href="http://yoursite.com/2017/07/19/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://yoursite.com/2017/07/19/VMWare共享文件夹设置/</id>
+    <published>2017-07-19T02:15:45.000Z</published>
+    <updated>2017-07-19T02:30:51.858Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：<a href="http://www.itread01.com/articles/1476103217.html" target="_blank" rel="external">http://www.itread01.com/articles/1476103217.html</a></p>
+<p>讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。<br>使用VMWare的共享文件夹是个好方法。<br>虚拟机为CentOS7。</p>
+<a id="more"></a>
+<p>首先给Windows和Linux虚拟机均安装VMWare Tools，下面为Linux下安装VMWare Tools：</p>
+<pre class=" language-shell"><code class="language-shell">
+yum install open-vm-tools open-vm-tools-desktop
+</code></pre>
+<p>配置服务：</p>
+<pre class=" language-shell"><code class="language-shell">
+vi /etc/systemd/system/mnt.hgfs.service
+</code></pre>
+<p>内容为：</p>
+<pre><code>
+[Unit]
+
+Description=Load VMware shared folders
+
+Requires=vmware-vmblock-fuse.service
+
+After=vmware-vmblock-fuse.service
+
+ConditionPathExists=.host:/
+
+ConditionVirtualization=vmware
+
+
+[Service]
+
+Type=oneshot
+
+RemainAfterExit=yes
+
+ExecStart=
+
+ExecStart=/usr/bin/vmhgfs-fuse -o allow_other -o auto_unmount .host:/ /mnt/hgfs
+
+
+[Install]
+
+WantedBy=multi-user.target
+</code></pre><p>保存然后启动服务：</p>
+<pre class=" language-shell"><code class="language-shell">
+systemctl enable mnt.hgfs.service
+</code></pre>
+<p>创建挂载文件夹：</p>
+<pre class=" language-shell"><code class="language-shell">
+mkdir -p /mnt/hgfs
+</code></pre>
+<p>重启虚拟机应该就能看到共享的文件夹了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考：&lt;a href=&quot;http://www.itread01.com/articles/1476103217.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.itread01.com/articles/1476103217.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。&lt;br&gt;使用VMWare的共享文件夹是个好方法。&lt;br&gt;虚拟机为CentOS7。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="VMWare" scheme="http://yoursite.com/tags/VMWare/"/>
+    
+  </entry>
+  
+  <entry>
     <title>gal填坑进度0x00</title>
     <link href="http://yoursite.com/2017/07/13/gal%E5%A1%AB%E5%9D%91%E8%BF%9B%E5%BA%A60x00/"/>
     <id>http://yoursite.com/2017/07/13/gal填坑进度0x00/</id>
     <published>2017-07-13T02:41:43.000Z</published>
-    <updated>2017-07-13T03:06:05.681Z</updated>
+    <updated>2017-07-19T02:17:21.004Z</updated>
     
     <content type="html"><![CDATA[<p>ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……<br>目前还能想到的坑：</p>
 <a id="more"></a>
@@ -29,6 +103,7 @@
 <p>* 白色相簿2（Leaf）</p>
 <p>* 秽翼的尤斯蒂娅（August）</p>
 <p> 更胜夜明前的琉璃色（August）</p>
+<p> * Little Busters!(Key)</p>
 <p> 神采（Eushully）</p>
 <p> 姬狩（Eushully）</p>
 <p> D.C.P.C（Circus）</p>
