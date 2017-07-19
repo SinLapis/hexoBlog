@@ -19,7 +19,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/19/VMWare共享文件夹设置/index.html">
 <meta property="og:site_name" content="SinLapis的博客">
 <meta property="og:description" content="参考：http://www.itread01.com/articles/1476103217.html 讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。使用VMWare的共享文件夹是个好方法。虚拟机为CentOS7。">
-<meta property="og:updated_time" content="2017-07-19T02:30:51.858Z">
+<meta property="og:updated_time" content="2017-07-19T06:33:42.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VMWare共享文件夹设置">
 <meta name="twitter:description" content="参考：http://www.itread01.com/articles/1476103217.html 讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。使用VMWare的共享文件夹是个好方法。虚拟机为CentOS7。">
@@ -141,16 +141,13 @@
 <p>讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。<br>使用VMWare的共享文件夹是个好方法。<br>虚拟机为CentOS7。</p>
 <a id="more"></a>
 <p>首先给Windows和Linux虚拟机均安装VMWare Tools，下面为Linux下安装VMWare Tools：</p>
-<pre class=" language-shell"><code class="language-shell">
-yum install open-vm-tools open-vm-tools-desktop
+<pre class=" language-shell"><code class="language-shell">yum install open-vm-tools open-vm-tools-desktop
 </code></pre>
 <p>配置服务：</p>
-<pre class=" language-shell"><code class="language-shell">
-vi /etc/systemd/system/mnt.hgfs.service
+<pre class=" language-shell"><code class="language-shell">vi /etc/systemd/system/mnt.hgfs.service
 </code></pre>
 <p>内容为：</p>
-<pre><code>
-[Unit]
+<pre><code>[Unit]
 
 Description=Load VMware shared folders
 
@@ -178,12 +175,10 @@ ExecStart=/usr/bin/vmhgfs-fuse -o allow_other -o auto_unmount .host:/ /mnt/hgfs
 
 WantedBy=multi-user.target
 </code></pre><p>保存然后启动服务：</p>
-<pre class=" language-shell"><code class="language-shell">
-systemctl enable mnt.hgfs.service
+<pre class=" language-shell"><code class="language-shell">systemctl enable mnt.hgfs.service
 </code></pre>
 <p>创建挂载文件夹：</p>
-<pre class=" language-shell"><code class="language-shell">
-mkdir -p /mnt/hgfs
+<pre class=" language-shell"><code class="language-shell">mkdir -p /mnt/hgfs
 </code></pre>
 <p>重启虚拟机应该就能看到共享的文件夹了。</p>
 
@@ -200,6 +195,10 @@ mkdir -p /mnt/hgfs
 		
 	
 		<div class="art-item-footer">
+				
+					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2017/07/19/FluentPython笔记0x01/" rel="prev"  title="Fluent Python笔记0x01">
+						Fluent Python笔记0x01 
+					</a></span>
 				
 				
 					<span class="art-item-right">next：<a href="/2017/07/13/gal填坑进度0x00/" rel="next"  title="gal填坑进度0x00">
@@ -242,7 +241,7 @@ mkdir -p /mnt/hgfs
     
         <li><a class="flat-box" href="/categories/Linux/"><div class='name'>Linux</div><div class='badget'>1</div></a></li>
     
-        <li><a class="flat-box" href="/categories/Python/"><div class='name'>Python</div><div class='badget'>1</div></a></li>
+        <li><a class="flat-box" href="/categories/Python/"><div class='name'>Python</div><div class='badget'>2</div></a></li>
     
     </ul>
     

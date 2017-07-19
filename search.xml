@@ -3,22 +3,92 @@
   
     
     <entry>
+      <title><![CDATA[Fluent Python笔记0x01]]></title>
+      <url>/2017/07/19/FluentPython%E7%AC%94%E8%AE%B00x01/</url>
+      <content type="html"><![CDATA[<p>划了两周水……</p>
+<h2 id="p8"><a href="#p8" class="headerlink" title="p8"></a>p8</h2><ul>
+<li>special methods是由Python解释器调用，不需要你来调用（虽然也可以亲自调用）。</li>
+<li>对于内置类型如<code>list</code>，<code>str</code>，<code>bytearray</code>等来说，调用<code>len()</code>则是由CPython直接返回<code>PyVarObject</code>（C的struct）中关于长度的变量，这比调用<code>__len__</code>要快很多。</li>
+</ul>
+<a id="more"></a>
+<h2 id="p10"><a href="#p10" class="headerlink" title="p10"></a>p10</h2><ul>
+<li>例子1-2：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">from</span> math <span class="token keyword">import</span> hypot
+
+
+<span class="token keyword">class</span> <span class="token class-name">Vector</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
+
+    <span class="token keyword">def</span> <span class="token function">__repr__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'Vector(%r, %r)'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__abs__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> hypot<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__bool__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> bool<span class="token punctuation">(</span>abs<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__add__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>x <span class="token operator">+</span> other<span class="token punctuation">.</span>x
+        y <span class="token operator">=</span> self<span class="token punctuation">.</span>y <span class="token operator">+</span> other<span class="token punctuation">.</span>y
+        <span class="token keyword">return</span> Vector<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__mul__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> Vector<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">*</span> other<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">*</span> other<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="p11"><a href="#p11" class="headerlink" title="p11"></a>p11</h2><ul>
+<li>关于<code>__str__</code>和<code>__repr__</code>的区别（参考：<a href="https://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python" target="_blank" rel="external">StackOverflow</a>）</li>
+</ul>
+<p>简单来说<code>__repr__</code>是为了保证无歧义，而<code>__str__</code>是为了提供可读性。在Python提供的类中，使用<code>__repr__</code>返回的结果都是格式化的数据，是符合Python语法的；<code>__str__</code>则是面向一般用户，提供可读性，但不保证无歧义，例如int型的3和str的3满足：</p>
+<pre class=" language-python"><code class="language-python">str<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">==</span> str<span class="token punctuation">(</span><span class="token string">'3'</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="p12"><a href="#p12" class="headerlink" title="p12"></a>p12</h2><ul>
+<li>关于运算符：例1-2中声明的<code>__add__</code>和<code>__mul__</code>是针对<code>+</code>和<code>*</code>的重载。注意这里乘法参数顺序必须为向量在前数在后。</li>
+<li>布尔值：在Python中，任何对象都有布尔值。如果对象未声明<code>__bool__</code>或<code>__len__</code>，则其布尔值恒为<code>True</code>。如果声明了<code>__bool__</code>则<code>bool()</code>会使用其返回值。如果没有声明<code>__bool__</code>而声明了<code>__len__</code>则会使用<code>len()</code>的返回值，为0则为<code>False</code>，否则为<code>True</code>。</li>
+<li>有关例1-2中<code>Vector.__bool__</code>一个更加便捷的声明：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">def</span> <span class="token function">__bool__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> bool<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">or</span> self<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+</code></pre>
+<p>这样可以避免使用<code>abs()</code>。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 笔记 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[VMWare共享文件夹设置]]></title>
       <url>/2017/07/19/VMWare%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E8%AE%BE%E7%BD%AE/</url>
       <content type="html"><![CDATA[<p>参考：<a href="http://www.itread01.com/articles/1476103217.html" target="_blank" rel="external">http://www.itread01.com/articles/1476103217.html</a></p>
 <p>讲道理还是在Windows下写代码舒服一些，那么就需要把代码同步到Linux虚拟机上。<br>使用VMWare的共享文件夹是个好方法。<br>虚拟机为CentOS7。</p>
 <a id="more"></a>
 <p>首先给Windows和Linux虚拟机均安装VMWare Tools，下面为Linux下安装VMWare Tools：</p>
-<pre class=" language-shell"><code class="language-shell">
-yum install open-vm-tools open-vm-tools-desktop
+<pre class=" language-shell"><code class="language-shell">yum install open-vm-tools open-vm-tools-desktop
 </code></pre>
 <p>配置服务：</p>
-<pre class=" language-shell"><code class="language-shell">
-vi /etc/systemd/system/mnt.hgfs.service
+<pre class=" language-shell"><code class="language-shell">vi /etc/systemd/system/mnt.hgfs.service
 </code></pre>
 <p>内容为：</p>
-<pre><code>
-[Unit]
+<pre><code>[Unit]
 
 Description=Load VMware shared folders
 
@@ -46,12 +116,10 @@ ExecStart=/usr/bin/vmhgfs-fuse -o allow_other -o auto_unmount .host:/ /mnt/hgfs
 
 WantedBy=multi-user.target
 </code></pre><p>保存然后启动服务：</p>
-<pre class=" language-shell"><code class="language-shell">
-systemctl enable mnt.hgfs.service
+<pre class=" language-shell"><code class="language-shell">systemctl enable mnt.hgfs.service
 </code></pre>
 <p>创建挂载文件夹：</p>
-<pre class=" language-shell"><code class="language-shell">
-mkdir -p /mnt/hgfs
+<pre class=" language-shell"><code class="language-shell">mkdir -p /mnt/hgfs
 </code></pre>
 <p>重启虚拟机应该就能看到共享的文件夹了。</p>
 ]]></content>
