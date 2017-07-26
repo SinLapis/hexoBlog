@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>FluentPython笔记0x02 | SinLapis的博客</title>
+  <meta name="description" content="null" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="SinLapis的博客">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="嗯，记点单词。 p14 augmented assignment: 增量赋值，例i += 1。">
+<meta name="keywords" content="Python,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FluentPython笔记0x02">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/FluentPython笔记0x02/index.html">
+<meta property="og:site_name" content="SinLapis的博客">
+<meta property="og:description" content="嗯，记点单词。 p14 augmented assignment: 增量赋值，例i += 1。">
+<meta property="og:updated_time" content="2017-07-26T09:24:13.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FluentPython笔记0x02">
+<meta name="twitter:description" content="嗯，记点单词。 p14 augmented assignment: 增量赋值，例i += 1。">
+    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+<body>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+
+
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				SinLapis的博客
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
+
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+	</nav>
+</aside>
+
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-FluentPython笔记0x02"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2017/07/26/FluentPython笔记0x02/">
+    	FluentPython笔记0x02
+    </a>
+  </h2>
+	<time>
+	  7月 26, 2017
+	</time>
+	
+    
+    <div class='cats'>
+        <a href="/categories/Python/">Python</a>
+    </div>
+
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#p14"><span class="toc-number">1.</span> <span class="toc-text">p14</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-2"><span class="toc-number"></span> <span class="toc-text">Chapter 2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#p21"><span class="toc-number">1.</span> <span class="toc-text">p21</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#p23"><span class="toc-number">2.</span> <span class="toc-text">p23</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#p25"><span class="toc-number">3.</span> <span class="toc-text">p25</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>嗯，记点单词。</p>
+<h2 id="p14"><a href="#p14" class="headerlink" title="p14"></a>p14</h2><ul>
+<li>augmented assignment: 增量赋值，例<code>i += 1</code>。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>aspect-oriented programming: 面向侧面编程（AOP），又称面向方面编程，是对面向对象编程的补充。侧面是一种新的模块化机制，用来描述分散在对象、类或函数中的横切关注点，即关键的逻辑部分。例如Python的装饰器，某装饰器可以包含执行某一过程前后的日志记录，那么这种编程方法即可称为面向侧面编程。</li>
+</ul>
+<h1 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter 2"></a>Chapter 2</h1><h2 id="p21"><a href="#p21" class="headerlink" title="p21"></a>p21</h2><ul>
+<li>list生成：比较两种方法的可读性。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+symbols <span class="token operator">=</span> <span class="token string">'abcdef'</span>
+codes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">:</span>
+  codes<span class="token punctuation">.</span>append<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>codes<span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python">
+symbols <span class="token operator">=</span> <span class="token string">'abcdef'</span>
+codes <span class="token operator">=</span> <span class="token punctuation">[</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span> <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>codes<span class="token punctuation">)</span>
+</code></pre>
+<p>for循环的功能有很多，诸如扫描队列并取出元素、计算总和等等，但是listcomp(list comprehension, 列表推导式)的功能就只有生成一个新列表。从这个角度来看后者可读性更高。</p>
+<ul>
+<li><p>在Python 2中，如果列表推导式、生成器表达式的作用域中的变量名和外面有重复的话是会禅师冲突的。虽然Python 3解决了这一问题，但是在写代码时还是避免这种情况。</p>
+<h2 id="p23"><a href="#p23" class="headerlink" title="p23"></a>p23</h2></li>
+<li><p>Cartesian product: 笛卡尔积。下面的代码为推荐写法。</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+colors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token string">'white'</span><span class="token punctuation">]</span>
+sizes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'S'</span><span class="token punctuation">,</span> <span class="token string">'M'</span><span class="token punctuation">,</span> <span class="token string">'L'</span><span class="token punctuation">]</span>
+tshirts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>color<span class="token punctuation">,</span> size<span class="token punctuation">)</span> <span class="token keyword">for</span> color <span class="token keyword">in</span> colors
+                         <span class="token keyword">for</span> size <span class="token keyword">in</span> sizes<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tshirts<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="p25"><a href="#p25" class="headerlink" title="p25"></a>p25</h2><ul>
+<li>generator expression: 生成器表达式。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+symbols <span class="token operator">=</span> <span class="token string">'abcdef'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tuple<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span> <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">import</span> array
+<span class="token keyword">print</span><span class="token punctuation">(</span>array<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span> <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>当生成器表达式单独作为参数时不需要加括号。但像在<code>array</code>中接受两个参数时，生成器表达式需要加上圆括号。上述的T恤的代码用生成器表达式改写：</p>
+<pre class=" language-python"><code class="language-python">
+colors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token string">'white'</span><span class="token punctuation">]</span>
+sizes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'S'</span><span class="token punctuation">,</span> <span class="token string">'M'</span><span class="token punctuation">,</span> <span class="token string">'L'</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> tshirt <span class="token keyword">in</span> <span class="token punctuation">(</span><span class="token string">'%s %s'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>c<span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token keyword">for</span> c <span class="token keyword">in</span> colors <span class="token keyword">for</span> s <span class="token keyword">in</span> sizes<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>tshirt<span class="token punctuation">)</span>
+</code></pre>
+<p>注意生成器的结果不会全部保存在内存中，它一次只会给<code>for</code>循环一个结果。</p>
+
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/Python/">Python</a>
+      
+        <a href="/tags/笔记/">笔记</a>
+      
+	  </div>
+    
+		
+	
+		<div class="art-item-footer">
+				
+				
+					<span class="art-item-right">next：<a href="/2017/07/19/FluentPython笔记0x01/" rel="next"  title="Fluent Python笔记0x01">
+						Fluent Python笔记0x01
+					</a><i class="icon icon-chevron-thin-right"></i></span>
+				
+		</div>
+	
+	</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: 'FluentPython笔记0x02',
+		tools: true
+	}
+</script>
+
+      </div>
+      <aside class='l_side'>
+        
+  <section class='m_widget about'>
+
+<img class='avatar waves-image' src='http://wx4.sinaimg.cn/mw690/872f2373gy1fh9xgg2igyj20cm0cm3zw.jpg' />
+
+<div class='header'>SinLapis</div>
+<div class='content'>
+<div class='desc'>あなたは今とこで何をしていますか？この空の续く场所にいますか？</div>
+</div>
+</section>
+
+
+  <section class='m_widget categories'>
+<div class='header'>Categories</div>
+<div class='content'>
+    
+    <ul class="entry">
+    
+        <li><a class="flat-box" href="/categories/ACG/"><div class='name'>ACG</div><div class='badget'>1</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/Linux/"><div class='name'>Linux</div><div class='badget'>1</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/Python/"><div class='name'>Python</div><div class='badget'>3</div></a></li>
+    
+    </ul>
+    
+</div>
+</section>
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/SinLapis" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://twitter.com/_SinLapis_" class="social twitter"
+          target="_blank" rel="external">
+          <span class="icon icon-twitter"></span>
+        </a>
+      
+        <a href="https://plus.google.com/+SinLapis" class="social google"
+          target="_blank" rel="external">
+          <span class="icon icon-google"></span>
+        </a>
+      
+    
+  </div>
+  
+  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
+</footer>
+
+
+  <script>setLoadingBarProgress(80);</script>
+  
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

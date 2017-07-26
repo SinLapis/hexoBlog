@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-19T09:05:36.886Z</updated>
+  <updated>2017-07-26T09:24:13.939Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,88 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FluentPython笔记0x02</title>
+    <link href="http://yoursite.com/2017/07/26/FluentPython%E7%AC%94%E8%AE%B00x02/"/>
+    <id>http://yoursite.com/2017/07/26/FluentPython笔记0x02/</id>
+    <published>2017-07-26T00:57:06.000Z</published>
+    <updated>2017-07-26T09:24:13.939Z</updated>
+    
+    <content type="html"><![CDATA[<p>嗯，记点单词。</p>
+<h2 id="p14"><a href="#p14" class="headerlink" title="p14"></a>p14</h2><ul>
+<li>augmented assignment: 增量赋值，例<code>i += 1</code>。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>aspect-oriented programming: 面向侧面编程（AOP），又称面向方面编程，是对面向对象编程的补充。侧面是一种新的模块化机制，用来描述分散在对象、类或函数中的横切关注点，即关键的逻辑部分。例如Python的装饰器，某装饰器可以包含执行某一过程前后的日志记录，那么这种编程方法即可称为面向侧面编程。</li>
+</ul>
+<h1 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter 2"></a>Chapter 2</h1><h2 id="p21"><a href="#p21" class="headerlink" title="p21"></a>p21</h2><ul>
+<li>list生成：比较两种方法的可读性。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+symbols <span class="token operator">=</span> <span class="token string">'abcdef'</span>
+codes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">:</span>
+  codes<span class="token punctuation">.</span>append<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>codes<span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python">
+symbols <span class="token operator">=</span> <span class="token string">'abcdef'</span>
+codes <span class="token operator">=</span> <span class="token punctuation">[</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span> <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>codes<span class="token punctuation">)</span>
+</code></pre>
+<p>for循环的功能有很多，诸如扫描队列并取出元素、计算总和等等，但是listcomp(list comprehension, 列表推导式)的功能就只有生成一个新列表。从这个角度来看后者可读性更高。</p>
+<ul>
+<li><p>在Python 2中，如果列表推导式、生成器表达式的作用域中的变量名和外面有重复的话是会禅师冲突的。虽然Python 3解决了这一问题，但是在写代码时还是避免这种情况。</p>
+<h2 id="p23"><a href="#p23" class="headerlink" title="p23"></a>p23</h2></li>
+<li><p>Cartesian product: 笛卡尔积。下面的代码为推荐写法。</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+colors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token string">'white'</span><span class="token punctuation">]</span>
+sizes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'S'</span><span class="token punctuation">,</span> <span class="token string">'M'</span><span class="token punctuation">,</span> <span class="token string">'L'</span><span class="token punctuation">]</span>
+tshirts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>color<span class="token punctuation">,</span> size<span class="token punctuation">)</span> <span class="token keyword">for</span> color <span class="token keyword">in</span> colors
+                         <span class="token keyword">for</span> size <span class="token keyword">in</span> sizes<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tshirts<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="p25"><a href="#p25" class="headerlink" title="p25"></a>p25</h2><ul>
+<li>generator expression: 生成器表达式。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+symbols <span class="token operator">=</span> <span class="token string">'abcdef'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tuple<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span> <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">import</span> array
+<span class="token keyword">print</span><span class="token punctuation">(</span>array<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>ord<span class="token punctuation">(</span>symbol<span class="token punctuation">)</span> <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>当生成器表达式单独作为参数时不需要加括号。但像在<code>array</code>中接受两个参数时，生成器表达式需要加上圆括号。上述的T恤的代码用生成器表达式改写：</p>
+<pre class=" language-python"><code class="language-python">
+colors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token string">'white'</span><span class="token punctuation">]</span>
+sizes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'S'</span><span class="token punctuation">,</span> <span class="token string">'M'</span><span class="token punctuation">,</span> <span class="token string">'L'</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> tshirt <span class="token keyword">in</span> <span class="token punctuation">(</span><span class="token string">'%s %s'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>c<span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token keyword">for</span> c <span class="token keyword">in</span> colors <span class="token keyword">for</span> s <span class="token keyword">in</span> sizes<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>tshirt<span class="token punctuation">)</span>
+</code></pre>
+<p>注意生成器的结果不会全部保存在内存中，它一次只会给<code>for</code>循环一个结果。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;嗯，记点单词。&lt;/p&gt;
+&lt;h2 id=&quot;p14&quot;&gt;&lt;a href=&quot;#p14&quot; class=&quot;headerlink&quot; title=&quot;p14&quot;&gt;&lt;/a&gt;p14&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;augmented assignment: 增量赋值，例&lt;code&gt;i += 1&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="笔记" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Fluent Python笔记0x01</title>
