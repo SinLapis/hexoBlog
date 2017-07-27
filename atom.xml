@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-27T08:38:43.899Z</updated>
+  <updated>2017-07-27T08:50:23.509Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,12 +20,13 @@
     <link href="http://yoursite.com/2017/07/27/FluentPython%E7%AC%94%E8%AE%B00x03/"/>
     <id>http://yoursite.com/2017/07/27/FluentPython笔记0x03/</id>
     <published>2017-07-27T02:10:41.000Z</published>
-    <updated>2017-07-27T08:38:43.899Z</updated>
+    <updated>2017-07-27T08:50:23.509Z</updated>
     
     <content type="html"><![CDATA[<p>唔，如果把这本书涉及到但是没提到的点拓展开，我什么时候能读完这本书呢？</p>
 <h2 id="p26"><a href="#p26" class="headerlink" title="p26"></a>p26</h2><ul>
 <li>元组不仅仅是不可变的列表，还可以存储记录。</li>
 </ul>
+<a id="more"></a>
 <h2 id="p27"><a href="#p27" class="headerlink" title="p27"></a>p27</h2><pre class=" language-python"><code class="language-python">
 lax_coordinates <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">33.9425</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">118.408056</span><span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true"># 洛杉矶国际机场的经纬度</span>
@@ -49,7 +50,8 @@ t <span class="token operator">=</span> <span class="token punctuation">(</span>
 <h2 id="p29"><a href="#p29" class="headerlink" title="p29"></a>p29</h2><ul>
 <li><code>*</code>还可以获取多余的项。</li>
 </ul>
-<pre class=" language-python"><code class="language-python">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token operator">*</span>rest <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<pre class=" language-python"><code class="language-python">
+a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token operator">*</span>rest <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> rest<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true"># 结果：(0, 1, [2, 3, 4])</span>
 a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token operator">*</span>rest <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
@@ -93,6 +95,13 @@ Sao Paulo       |  -23.5478 |  -46.6358
 <ul>
 <li>格式字符串<code>str.format</code>（参考<a href="http://blog.xiayf.cn/2013/01/26/python-string-format/" target="_blank" rel="external">blog.xiayf.cn</a>）: 其实<code>%</code>这种格式输出已经很老了，<code>str.format</code>可以更加方便的格式输出以及提供更多功能。下表为一些基础的数格式输出。</li>
 </ul>
+<style>
+table th, table td {
+  text-align: center;
+  padding: 5px;
+}
+</style>
+
 <table>
 <thead>
 <tr>
@@ -166,19 +175,19 @@ Sao Paulo       |  -23.5478 |  -46.6358
 <tr>
 <td>13</td>
 <td>{:10d}</td>
-<td><strong>__</strong>13</td>
+<td>······13</td>
 <td>右对齐，默认，宽度为10</td>
 </tr>
 <tr>
 <td>13</td>
 <td>{:&lt;10d}</td>
-<td>13<strong>__</strong></td>
+<td>13······</td>
 <td>左对齐，宽度为10</td>
 </tr>
 <tr>
 <td>13</td>
 <td>{:^10d}</td>
-<td><strong><em>13</em></strong></td>
+<td>···13···</td>
 <td>居中，宽度为10</td>
 </tr>
 </tbody>
@@ -259,7 +268,8 @@ coordinates: LatLong(lat=28.613889, long=77.208889)
     
       &lt;p&gt;唔，如果把这本书涉及到但是没提到的点拓展开，我什么时候能读完这本书呢？&lt;/p&gt;
 &lt;h2 id=&quot;p26&quot;&gt;&lt;a href=&quot;#p26&quot; class=&quot;headerlink&quot; title=&quot;p26&quot;&gt;&lt;/a&gt;p26&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;元组不仅仅是不可变的列表，还可以存
+&lt;li&gt;元组不仅仅是不可变的列表，还可以存储记录。&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
