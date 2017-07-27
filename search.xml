@@ -3,6 +3,259 @@
   
     
     <entry>
+      <title><![CDATA[FluentPython笔记0x03]]></title>
+      <url>/2017/07/27/FluentPython%E7%AC%94%E8%AE%B00x03/</url>
+      <content type="html"><![CDATA[<p>唔，如果把这本书涉及到但是没提到的点拓展开，我什么时候能读完这本书呢？</p>
+<h2 id="p26"><a href="#p26" class="headerlink" title="p26"></a>p26</h2><ul>
+<li>元组不仅仅是不可变的列表，还可以存储记录。</li>
+</ul>
+<h2 id="p27"><a href="#p27" class="headerlink" title="p27"></a>p27</h2><pre class=" language-python"><code class="language-python">
+lax_coordinates <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">33.9425</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">118.408056</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 洛杉矶国际机场的经纬度</span>
+city<span class="token punctuation">,</span> year<span class="token punctuation">,</span> pop<span class="token punctuation">,</span> chg<span class="token punctuation">,</span> area <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'Tokyo'</span><span class="token punctuation">,</span> <span class="token number">2003</span><span class="token punctuation">,</span> <span class="token number">32450</span><span class="token punctuation">,</span> <span class="token number">0.66</span><span class="token punctuation">,</span> <span class="token number">8014</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 有关东京的数据：名称，年份，人口（百万），人口变化，面积（平方公里）</span>
+traveler_ids <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'USA'</span><span class="token punctuation">,</span> <span class="token string">'31195855'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'BRA'</span><span class="token punctuation">,</span> <span class="token string">'CE342567'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'ESP'</span><span class="token punctuation">,</span> <span class="token string">'XDA205856'</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> passport <span class="token keyword">in</span> traveler_ids<span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'%s/%s'</span> <span class="token operator">%</span> passport<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 上面对元组的操作称为元组解包</span>
+<span class="token keyword">for</span> country<span class="token punctuation">,</span> _ <span class="token keyword">in</span> traveler_ids<span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>country<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 使用 _ 作为占位符，可以只获取元组中需要的字段</span>
+b<span class="token punctuation">,</span> a <span class="token operator">=</span> a<span class="token punctuation">,</span> b
+<span class="token comment" spellcheck="true"># 一个优雅的交换两个变量值的操作</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>divmod<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>divmod<span class="token punctuation">(</span><span class="token operator">*</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 使用 * 来解包元组传参</span>
+</code></pre>
+<h2 id="p29"><a href="#p29" class="headerlink" title="p29"></a>p29</h2><ul>
+<li><code>*</code>还可以获取多余的项。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token operator">*</span>rest <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> rest<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果：(0, 1, [2, 3, 4])</span>
+a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token operator">*</span>rest <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> rest<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果：(0, 1, [2])</span>
+a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token operator">*</span>rest <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> rest<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果：(0, 1, [])</span>
+a<span class="token punctuation">,</span> <span class="token operator">*</span>body<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> body<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果：(0, [1, 2], 3, 4)</span>
+<span class="token operator">*</span>head<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果：([0, 1], 2, 3, 4)</span>
+</code></pre>
+<p>可见前缀<code>*</code>可以出现在任意位置。</p>
+<ul>
+<li>嵌套元组解包：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+metro_areas <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">(</span><span class="token string">'Tokyo'</span><span class="token punctuation">,</span> <span class="token string">'JP'</span><span class="token punctuation">,</span> <span class="token number">36.933</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">35.689722</span><span class="token punctuation">,</span> <span class="token number">139.691667</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token string">'Delhi NCR'</span><span class="token punctuation">,</span> <span class="token string">'IN'</span><span class="token punctuation">,</span> <span class="token number">21.935</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">28.613889</span><span class="token punctuation">,</span> <span class="token number">77.208889</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token string">'Mexico City'</span><span class="token punctuation">,</span> <span class="token string">'MX'</span><span class="token punctuation">,</span> <span class="token number">20.142</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">19.433333</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">99.133333</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token string">'New York-Newark'</span><span class="token punctuation">,</span> <span class="token string">'US'</span><span class="token punctuation">,</span> <span class="token number">20.104</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">40.808611</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">74.020386</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token string">'Sao Paulo'</span><span class="token punctuation">,</span> <span class="token string">'BR'</span><span class="token punctuation">,</span> <span class="token number">19.649</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">23.547778</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">46.635833</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'{:15} | {:^9} | {:^9}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">'lat.'</span><span class="token punctuation">,</span> <span class="token string">'long.'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+fmt <span class="token operator">=</span> <span class="token string">'{:15} | {:9.4f} | {:9.4f}'</span>
+<span class="token keyword">for</span> name<span class="token punctuation">,</span> cc<span class="token punctuation">,</span> pop<span class="token punctuation">,</span> <span class="token punctuation">(</span>latitude<span class="token punctuation">,</span> longitude<span class="token punctuation">)</span> <span class="token keyword">in</span> metro_areas<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> longitude <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span>format<span class="token punctuation">(</span>name<span class="token punctuation">,</span> latitude<span class="token punctuation">,</span> longitude<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">'''结果：
+                |   lat.    |   long.  
+Mexico City     |   19.4333 |  -99.1333
+New York-Newark |   40.8086 |  -74.0204
+Sao Paulo       |  -23.5478 |  -46.6358
+'''</span>
+</code></pre>
+<ul>
+<li>格式字符串<code>str.format</code>（参考<a href="http://blog.xiayf.cn/2013/01/26/python-string-format/" target="_blank" rel="external">blog.xiayf.cn</a>）: 其实<code>%</code>这种格式输出已经很老了，<code>str.format</code>可以更加方便的格式输出以及提供更多功能。下表为一些基础的数格式输出。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>数</th>
+<th>格式</th>
+<th>输出</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.1415926</td>
+<td>{:.2f}</td>
+<td>3.14</td>
+<td>保留小数点后两位</td>
+</tr>
+<tr>
+<td>3.1415926</td>
+<td>{:+.2f}</td>
+<td>+3.14</td>
+<td>带符号保留小数后两位</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>{:+.2f}</td>
+<td>-1.00</td>
+<td>带符号保留小数后两位</td>
+</tr>
+<tr>
+<td>2.71828</td>
+<td>{:.0f}</td>
+<td>3</td>
+<td>不带小数</td>
+</tr>
+<tr>
+<td>5</td>
+<td>{:0&gt;2d}</td>
+<td>05</td>
+<td>数左补0，宽度到2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>{:x&lt;4d}</td>
+<td>5xxx</td>
+<td>数右补x，宽度到4</td>
+</tr>
+<tr>
+<td>10</td>
+<td>{:x&lt;4d}</td>
+<td>10xx</td>
+<td>数右补x，宽度到4</td>
+</tr>
+<tr>
+<td>1000000</td>
+<td>{:,}</td>
+<td>1,000,000</td>
+<td>使用逗号分隔</td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>{:.2%}</td>
+<td>25.00%</td>
+<td>百分比格式，两位小数</td>
+</tr>
+<tr>
+<td>1000000000</td>
+<td>{:.2e}</td>
+<td>1.00e+09</td>
+<td>科学计数法</td>
+</tr>
+<tr>
+<td>13</td>
+<td>{:10d}</td>
+<td><strong>__</strong>13</td>
+<td>右对齐，默认，宽度为10</td>
+</tr>
+<tr>
+<td>13</td>
+<td>{:&lt;10d}</td>
+<td>13<strong>__</strong></td>
+<td>左对齐，宽度为10</td>
+</tr>
+<tr>
+<td>13</td>
+<td>{:^10d}</td>
+<td><strong><em>13</em></strong></td>
+<td>居中，宽度为10</td>
+</tr>
+</tbody>
+</table>
+<p>有关于<code>str.format</code>的用法：</p>
+<pre class=" language-python"><code class="language-python">
+s1 <span class="token operator">=</span> <span class="token string">"so much depends upon {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"a red wheel barrow"</span><span class="token punctuation">)</span>
+s2 <span class="token operator">=</span> <span class="token string">"glazed with {} water beside the {} chickens"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"rain"</span><span class="token punctuation">,</span> <span class="token string">"white"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>这里<code>{}</code>即充当占位符，和<code>%s</code>的功能类似，会将<code>format</code>的参数依次填入。当然你也可以指定顺序填入，见下。</p>
+<pre class=" language-python"><code class="language-python">
+s1 <span class="token operator">=</span> <span class="token string">" {0} is better than {1} "</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"emacs"</span><span class="token punctuation">,</span> <span class="token string">"vim"</span><span class="token punctuation">)</span>
+s2 <span class="token operator">=</span> <span class="token string">" {1} is better than {0} "</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"emacs"</span><span class="token punctuation">,</span> <span class="token string">"vim"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>此外，这样能够标记序号的好处还有防止漏掉变量，见下。</p>
+<pre class=" language-python"><code class="language-python">
+set <span class="token operator">=</span>  <span class="token string">'(%s, %s, %s, %s, %s, %s, %s, %s)'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">,</span> g<span class="token punctuation">,</span> h<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># i是多余的</span>
+set <span class="token operator">=</span> <span class="token string">'({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">,</span> g<span class="token punctuation">)</span>
+</code></pre>
+<p><code>format</code>可以为占位符命名，这样就不需要严格的顺序了。</p>
+<pre class=" language-python"><code class="language-python">
+madlib <span class="token operator">=</span> <span class="token string">" I {verb} the {object} off the {place} "</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>verb<span class="token operator">=</span><span class="token string">"took"</span><span class="token punctuation">,</span> object<span class="token operator">=</span><span class="token string">"cheese"</span><span class="token punctuation">,</span> place<span class="token operator">=</span><span class="token string">"table"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>可以重复使用同一变量。</p>
+<pre class=" language-python"><code class="language-python">
+str <span class="token operator">=</span> <span class="token string">"Oh {0}, {0}! wherefore art thou {0}?"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"Romeo"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>可以转换进制。</p>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"{0:d} - {0:x} - {0:o} - {0:b} "</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token number">21</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>可以把<code>format</code>当做方法使用。</p>
+<pre class=" language-python"><code class="language-python">
+<span class="token comment" spellcheck="true"># 定义格式</span>
+email_f <span class="token operator">=</span> <span class="token string">"Your email address was {email}"</span><span class="token punctuation">.</span>format
+
+<span class="token comment" spellcheck="true"># 在另一个地方使用</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>email_f<span class="token punctuation">(</span>email<span class="token operator">=</span><span class="token string">"bob@example.com"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>如果你需要显示大括号，只要写两次就可以了。</p>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">" The {} set is often represented as { {0} } "</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"empty"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="p30"><a href="#p30" class="headerlink" title="p30"></a>p30</h2><ul>
+<li>含名称元组<code>collections.namedtuple</code>：在前文中提到过。注意使用<code>namedtuple</code>所需的内存是小于使用<code>class</code>的，因为<code>namedtuple</code>不会把参数存到完整实例<code>__dict__</code>中。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> namedtuple
+City <span class="token operator">=</span> namedtuple<span class="token punctuation">(</span><span class="token string">'City'</span><span class="token punctuation">,</span> <span class="token string">'name country population coordinates'</span><span class="token punctuation">)</span>
+tokyo <span class="token operator">=</span> City<span class="token punctuation">(</span><span class="token string">'Tokyo'</span><span class="token punctuation">,</span> <span class="token string">'JP'</span><span class="token punctuation">,</span> <span class="token number">36.933</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">35.689722</span><span class="token punctuation">,</span> <span class="token number">139.691667</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>在创建一个<code>namedtuple</code>时，既可以像之前一样使用列表包含属性，也可以使用空格分隔的字符串。</p>
+<h2 id="p31"><a href="#p31" class="headerlink" title="p31"></a>p31</h2><ul>
+<li>含名称元组的参数和方法：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span>City<span class="token punctuation">.</span>_fields<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># ('name', 'country', 'population', 'coordinates')</span>
+
+LatLong <span class="token operator">=</span> namedtuple<span class="token punctuation">(</span><span class="token string">'LatLong'</span><span class="token punctuation">,</span> <span class="token string">'lat long'</span><span class="token punctuation">)</span>
+delhi_data <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'Delhi NCR'</span><span class="token punctuation">,</span> <span class="token string">'IN'</span><span class="token punctuation">,</span> <span class="token number">21.935</span><span class="token punctuation">,</span> LatLong<span class="token punctuation">(</span><span class="token number">28.613889</span><span class="token punctuation">,</span> <span class="token number">77.208889</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+delhi <span class="token operator">=</span> City<span class="token punctuation">.</span>_make<span class="token punctuation">(</span>delhi_data<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span>delhi<span class="token punctuation">.</span>_asdict<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># OrderedDict([('name', 'Delhi NCR'), ('country', 'IN'), ('population', 21.935), ('coordinates', LatLong(lat=28.613889, long=77.208889))])</span>
+<span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> delhi<span class="token punctuation">.</span>_asdict<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>key <span class="token operator">+</span> <span class="token string">':'</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+name: Delhi NCR
+country: IN
+population: 21.935
+coordinates: LatLong(lat=28.613889, long=77.208889)
+'''</span>
+</code></pre>
+<p>其中<code>City._make(delhi_data)</code>与<code>City(*delhi_data)</code>等价。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 笔记 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[FluentPython笔记0x02]]></title>
       <url>/2017/07/26/FluentPython%E7%AC%94%E8%AE%B00x02/</url>
       <content type="html"><![CDATA[<p>嗯，记点单词。</p>
@@ -30,10 +283,10 @@ codes <span class="token operator">=</span> <span class="token punctuation">[</s
 </code></pre>
 <p>for循环的功能有很多，诸如扫描队列并取出元素、计算总和等等，但是listcomp(list comprehension, 列表推导式)的功能就只有生成一个新列表。从这个角度来看后者可读性更高。</p>
 <ul>
-<li><p>在Python 2中，如果列表推导式、生成器表达式的作用域中的变量名和外面有重复的话是会禅师冲突的。虽然Python 3解决了这一问题，但是在写代码时还是避免这种情况。</p>
-<h2 id="p23"><a href="#p23" class="headerlink" title="p23"></a>p23</h2></li>
-<li><p>Cartesian product: 笛卡尔积。下面的代码为推荐写法。</p>
-</li>
+<li>在Python 2中，如果列表推导式、生成器表达式的作用域中的变量名和外面有重复的话是会禅师冲突的。虽然Python 3解决了这一问题，但是在写代码时还是避免这种情况。</li>
+</ul>
+<h2 id="p23"><a href="#p23" class="headerlink" title="p23"></a>p23</h2><ul>
+<li>Cartesian product: 笛卡尔积。下面的代码为推荐写法。</li>
 </ul>
 <pre class=" language-python"><code class="language-python">
 colors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token string">'white'</span><span class="token punctuation">]</span>
