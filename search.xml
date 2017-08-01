@@ -3,6 +3,235 @@
   
     
     <entry>
+      <title><![CDATA[FluentPython笔记0x04]]></title>
+      <url>/2017/08/01/FluentPython%E7%AC%94%E8%AE%B00x04/</url>
+      <content type="html"><![CDATA[<h2 id="p32"><a href="#p32" class="headerlink" title="p32"></a>p32</h2><ul>
+<li>和列表相比，元组除了无法修改其中的值以外，只有一处和列表不同：元组无法使用<code>__reversed__</code>，但是可以使用以下方法代替：</li>
+</ul>
+<a id="more"></a>
+<pre class=" language-python"><code class="language-python">
+t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tuple<span class="token punctuation">(</span>reversed<span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>元组和列表可以与<code>int</code>型整数相乘，含义为返回对应的元组或列表，里边包括重复整数次的原来的元组或列表的内容。</li>
+</ul>
+<h2 id="p33"><a href="#p33" class="headerlink" title="p33"></a>p33</h2><ul>
+<li><p>像元组、列表等序列切片时为什么排除结束标号的项：1.可以简单的看出切片得到的长度，例<code>range(3)</code>以及<code>my_list[:3]</code>；2.可以简单地计算切片长度，只需结束序号减去开始序号；3.可以只使用一个序号就能把序列切成两部分，例如<code>my_list[:x]</code>和<code>my_list[x:]</code>。</p>
+</li>
+<li><p>切片的实现是一个切片类：<code>slice(start, stop, step)</code>。例：</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+source <span class="token operator">=</span> <span class="token triple-quoted-string string">'''
+0.......8....12
+0 AXL         5
+1 August      6
+2 key        10
+'''</span>
+INDEX <span class="token operator">=</span> slice<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+NAME <span class="token operator">=</span> slice<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
+POINT <span class="token operator">=</span> slice<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span>
+line_items <span class="token operator">=</span> source<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> item <span class="token keyword">in</span> line_items<span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>item<span class="token punctuation">[</span>POINT<span class="token punctuation">]</span><span class="token punctuation">,</span> item<span class="token punctuation">[</span>NAME<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>切片赋值操作：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+l <span class="token operator">=</span> list<span class="token punctuation">(</span>range<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+l<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># [0, 1, 20, 30, 5, 6, 7, 8, 9]</span>
+<span class="token keyword">del</span> l<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">:</span><span class="token number">7</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># [0, 1, 20, 30, 5, 8, 9]</span>
+l<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># [0, 1, 20, 11, 5, 22, 9]</span>
+l<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span>
+<span class="token comment" spellcheck="true"># 错误，左面是列表右面对应应该也是列表等可迭代对象</span>
+l<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true"># [0, 1, 100, 22, 9]</span>
+</code></pre>
+<h2 id="p40"><a href="#p40" class="headerlink" title="p40"></a>p40</h2><ul>
+<li>有关修改元组中列表的问题：代码如下。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+t<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">]</span>
+</code></pre>
+<p>终端报错如下</p>
+<pre><code>TypeError: &#39;tuple&#39; object does not support item assignment
+</code></pre><p>但是此时打印<code>t</code>会显示</p>
+<pre class=" language-python"><code class="language-python"><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>根据Python生成的字节码，元组<code>+=</code>这个操作的关键步骤为：1.将<code>t[2]</code>的值压栈（位于栈顶）；2.执行<code>栈顶值 += [50, 60]</code>，如果栈顶值不为可变变量的话会报错。但此处栈顶为<code>list</code>，故成功执行；3.执行<code>t[2] = 栈顶值</code>，如果<code>t</code>为不可变变量则会报错，此处<code>t</code>为元组故会出现报错。综上最终结果就是<code>list</code>的值改变了但是出现了报错。</p>
+<p>总结：1.不建议在元组中填入可变项；2.自增不是原子操作，错误抛出可以在自增中的任何一个环节独立抛出，而不影响前面已执行的部分；3.如果遇到类似问题可以尝试阅读Python字节码，它并不难懂。</p>
+<h2 id="p42"><a href="#p42" class="headerlink" title="p42"></a>p42</h2><ul>
+<li><code>list.sort</code>和<code>sorted</code>：<code>list.sort</code>只能用于可变序列，会改变列表，返回值为<code>None</code>。<code>sorted</code>可以用于任何序列，它总是会返回一个新的序列而不改变原序列。</li>
+</ul>
+<h2 id="p44"><a href="#p44" class="headerlink" title="p44"></a>p44</h2><ul>
+<li>使用<code>bisect</code>进行有序序列的查找和插入：<code>bisect</code>即二分查找。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">import</span> bisect
+<span class="token keyword">import</span> sys
+
+
+HAYSTACK <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span>
+NEEDLES <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">]</span>
+
+ROW_FMT <span class="token operator">=</span> <span class="token string">'{0:2d} @ {1:2d}     {2}{0:2d}'</span>
+
+
+<span class="token keyword">def</span> <span class="token function">demo</span><span class="token punctuation">(</span>bisect_fn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> needle <span class="token keyword">in</span> reversed<span class="token punctuation">(</span>NEEDLES<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        position <span class="token operator">=</span> bisect_fn<span class="token punctuation">(</span>HAYSTACK<span class="token punctuation">,</span> needle<span class="token punctuation">)</span>
+        offset <span class="token operator">=</span> position <span class="token operator">*</span> <span class="token string">'  |'</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>ROW_FMT<span class="token punctuation">.</span>format<span class="token punctuation">(</span>needle<span class="token punctuation">,</span> position<span class="token punctuation">,</span> offset<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'left'</span><span class="token punctuation">:</span>
+        bisect_fn <span class="token operator">=</span> bisect<span class="token punctuation">.</span>bisect_left
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        bisect_fn <span class="token operator">=</span> bisect<span class="token punctuation">.</span>bisect
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'DEMO:'</span><span class="token punctuation">,</span> bisect_fn<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'haystack ->'</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token string">'%2d'</span> <span class="token operator">%</span> n <span class="token keyword">for</span> n <span class="token keyword">in</span> HAYSTACK<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    demo<span class="token punctuation">(</span>bisect_fn<span class="token punctuation">)</span>
+</code></pre>
+<p>其中<code>bisect.bisect</code>和<code>bisect.bisect_right</code>是等价的，它们和<code>bisect.bisect_left</code>的区别在于遇到相等的值是插入的位置不同。一般情况下看不出区别，但是像<code>1</code>与<code>1.0</code>这样的还是有所区别的。</p>
+<p><code>bisect.bisect</code>有个有趣的应用：给连续的数值分级。</p>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">def</span> <span class="token function">grade</span><span class="token punctuation">(</span>score<span class="token punctuation">,</span> breakpoints<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">]</span><span class="token punctuation">,</span> grades<span class="token operator">=</span><span class="token string">'FDCBA'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  i <span class="token operator">=</span> bisect<span class="token punctuation">.</span>bisect<span class="token punctuation">(</span>breakpoints<span class="token punctuation">,</span> score<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> grades<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">[</span>grade<span class="token punctuation">(</span>score<span class="token punctuation">)</span> <span class="token keyword">for</span> score <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">,</span> <span class="token number">99</span><span class="token punctuation">,</span> <span class="token number">77</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">89</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># FACCBAA</span>
+</code></pre>
+<p>此外，<code>bisect.insort</code>是向有序序列中插入值而不破坏有序，和<code>bisect.bisect</code>类似。</p>
+<h2 id="p48"><a href="#p48" class="headerlink" title="p48"></a>p48</h2><ul>
+<li><p>如果对序列有特殊需求，<code>list</code>不一定是最好的选择。例如，如果你想保存10M个浮点数，<code>array</code>比<code>list</code>更加有效，因为<code>array</code>没有保存每一个<code>float</code>对象的全部。另外如果需要实现类似队列或者栈则可以使用<code>deque</code>。</p>
+</li>
+<li><p><code>array</code>需要先指定类型，即<code>array</code>只能存储一种类型的数据，但是这换来的是极大的性能提升。<code>array.fromfile</code>和<code>array.tofile</code>分别可以读取文件创建序列和将序列写入文件，这两种操作要比读写文本文件加上解析转换要快很多。以下为<code>array</code>支持的初始化类型：</p>
+</li>
+</ul>
+<style>
+table th, table td {
+  text-align: center;
+  padding: 5px;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th>类型码</th>
+<th>C类型</th>
+<th>Python类型</th>
+<th>最小占用字节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>char</td>
+<td>character</td>
+<td>1</td>
+</tr>
+<tr>
+<td>b</td>
+<td>signed char</td>
+<td>int</td>
+<td>1</td>
+</tr>
+<tr>
+<td>B</td>
+<td>unsigned char</td>
+<td>int</td>
+<td>1</td>
+</tr>
+<tr>
+<td>u</td>
+<td>Py_UNICODE</td>
+<td>Unicode character</td>
+<td>2</td>
+</tr>
+<tr>
+<td>h</td>
+<td>signed short</td>
+<td>int</td>
+<td>2</td>
+</tr>
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+<td>int</td>
+<td>2</td>
+</tr>
+<tr>
+<td>i</td>
+<td>signed int</td>
+<td>int</td>
+<td>2</td>
+</tr>
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+<td>long</td>
+<td>2</td>
+</tr>
+<tr>
+<td>l</td>
+<td>signed long</td>
+<td>int</td>
+<td>4</td>
+</tr>
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+<td>long</td>
+<td>4</td>
+</tr>
+<tr>
+<td>f</td>
+<td>float</td>
+<td>float</td>
+<td>4</td>
+</tr>
+<tr>
+<td>d</td>
+<td>double</td>
+<td>float</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="p51"><a href="#p51" class="headerlink" title="p51"></a>p51</h2><ul>
+<li><code>memorview</code>：内存查看对象，能够使用支持缓冲区协议的数据类型进行包装，在不需要复制的情况下用Python代码访问以及等大小修改。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 笔记 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[FluentPython笔记0x03]]></title>
       <url>/2017/07/27/FluentPython%E7%AC%94%E8%AE%B00x03/</url>
       <content type="html"><![CDATA[<p>唔，如果把这本书涉及到但是没提到的点拓展开，我什么时候能读完这本书呢？</p>
