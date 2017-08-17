@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-07T12:35:01.993Z</updated>
+  <updated>2017-08-17T08:59:11.781Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,132 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FluentPython笔记0x06</title>
+    <link href="http://yoursite.com/2017/08/17/FluentPython%E7%AC%94%E8%AE%B00x06/"/>
+    <id>http://yoursite.com/2017/08/17/FluentPython笔记0x06/</id>
+    <published>2017-08-17T00:57:21.000Z</published>
+    <updated>2017-08-17T08:59:11.781Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a>Chapter 3</h1><h2 id="Generic-Mapping-Types（p64"><a href="#Generic-Mapping-Types（p64" class="headerlink" title="Generic Mapping Types（p64)"></a>Generic Mapping Types（p64)</h2><ul>
+<li>可哈希：如果一个对象在它的生命周期中有一个不会改变的哈希值（它需要有<code>__hash__()</code>函数），并且它能够和其他对象进行比较（需要有<code>__eq__()</code>函数）。可哈希的对象相等必须拥有相同的哈希值。<code>str</code>、<code>bytes</code>以及数类型都是可哈希的；<code>frozenset</code>也总是可哈希的，因为它的元素必须可哈希；<code>tuple</code>仅当它包含的所有元素可哈希是它才是可哈希的。例：</li>
+</ul>
+<a id="more"></a>
+<pre class=" language-python"><code class="language-python">
+tt <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hash<span class="token punctuation">(</span>tt<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 8027212646858338501</span>
+tl <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>hash<span class="token punctuation">(</span>tl<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># TypeError: unhashable type: 'list'</span>
+</code></pre>
+<ul>
+<li>建立<code>dict</code>：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+a <span class="token operator">=</span> dict<span class="token punctuation">(</span>one<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> two<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> three<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'one'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'two'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'three'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span>
+c <span class="token operator">=</span> dict<span class="token punctuation">(</span>zip<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'one'</span><span class="token punctuation">,</span> <span class="token string">'two'</span><span class="token punctuation">,</span> <span class="token string">'three'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+d <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'three'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'one'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'two'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a <span class="token operator">==</span> b <span class="token operator">==</span> c <span class="token operator">==</span> d<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># True</span>
+</code></pre>
+<h2 id="dict-Comprehesions（p66）"><a href="#dict-Comprehesions（p66）" class="headerlink" title="dict Comprehesions（p66）"></a>dict Comprehesions（p66）</h2><ul>
+<li>类似与listcomp，<code>dict</code>也有dictcomp。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+DIAL_CODES <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">(</span><span class="token number">86</span><span class="token punctuation">,</span> <span class="token string">'China'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">91</span><span class="token punctuation">,</span> <span class="token string">'India'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'United States'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">62</span><span class="token punctuation">,</span> <span class="token string">'Indonesia'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">55</span><span class="token punctuation">,</span> <span class="token string">'Brazil'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">92</span><span class="token punctuation">,</span> <span class="token string">'Pakistan'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">880</span><span class="token punctuation">,</span> <span class="token string">'Bangladesh'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">234</span><span class="token punctuation">,</span> <span class="token string">'Nigeria'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token string">'Russia'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span><span class="token number">81</span><span class="token punctuation">,</span> <span class="token string">'Japan'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+country_code <span class="token operator">=</span> <span class="token punctuation">{</span>country<span class="token punctuation">:</span> code <span class="token keyword">for</span> code<span class="token punctuation">,</span> country <span class="token keyword">in</span> DIAL_CODES<span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span>country_code<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># {'China': 86, 'India': 91, 'United States': 1, 'Indonesia': 62, 'Brazil': 55, 'Pakistan': 92, 'Bangladesh': 880, 'Nigeria': 234, 'Russia': 7, 'Japan': 81}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span><span class="token punctuation">{</span>code<span class="token punctuation">:</span> country<span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> country<span class="token punctuation">,</span> code <span class="token keyword">in</span> country_code<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">if</span> code <span class="token operator">&lt;</span> <span class="token number">66</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># {1: 'UNITED STATES', 62: 'INDONESIA', 55: 'BRAZIL', 7: 'RUSSIA'}</span>
+</code></pre>
+<ul>
+<li>鸭子类型（duck typing，参考<a href="https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" target="_blank" rel="external">维基百科</a>）：“当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子。”鸭子类型是动态类型的一种风格。在这种风格中，一个对象有效的语义，不是由继承自特定的类或实现特定的接口，而是由”当前方法和属性的集合”决定。</li>
+</ul>
+<h2 id="Handling-Missing-Keys-with-setdefault（p68）"><a href="#Handling-Missing-Keys-with-setdefault（p68）" class="headerlink" title="Handling Missing Keys with setdefault（p68）"></a>Handling Missing Keys with setdefault（p68）</h2><ul>
+<li><code>d.get</code>和<code>d.setdefault</code>：<code>d.get(k, default)</code>是一种比较方便来处理<code>KeyError</code>的方法，在没有<code>k</code>值时会返回<code>default</code>。但是如果想更新字典中键值对使用<code>setdefault</code>会更加方便。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> re
+
+WORD_RE <span class="token operator">=</span> re<span class="token punctuation">.</span>compile<span class="token punctuation">(</span><span class="token string">'\w+'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">dict_get</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    index <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> line_no<span class="token punctuation">,</span> line <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>fp<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> match <span class="token keyword">in</span> WORD_RE<span class="token punctuation">.</span>finditer<span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            word <span class="token operator">=</span> match<span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            column_no <span class="token operator">=</span> match<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+            location <span class="token operator">=</span> <span class="token punctuation">(</span>line_no<span class="token punctuation">,</span> column_no<span class="token punctuation">)</span>
+            occurrences <span class="token operator">=</span> index<span class="token punctuation">.</span>get<span class="token punctuation">(</span>word<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            occurrences<span class="token punctuation">.</span>append<span class="token punctuation">(</span>location<span class="token punctuation">)</span>
+            index<span class="token punctuation">[</span>word<span class="token punctuation">]</span> <span class="token operator">=</span> occurrences
+    <span class="token keyword">for</span> word <span class="token keyword">in</span> sorted<span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token operator">=</span>str<span class="token punctuation">.</span>upper<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>word<span class="token punctuation">,</span> index<span class="token punctuation">[</span>word<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">dict_setdefault</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    index <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> line_no<span class="token punctuation">,</span> line <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>fp<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> match <span class="token keyword">in</span> WORD_RE<span class="token punctuation">.</span>finditer<span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            word <span class="token operator">=</span> match<span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            column_no <span class="token operator">=</span> match<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+            location <span class="token operator">=</span> <span class="token punctuation">(</span>line_no<span class="token punctuation">,</span> column_no<span class="token punctuation">)</span>
+            index<span class="token punctuation">.</span>setdefault<span class="token punctuation">(</span>word<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span>location<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> word <span class="token keyword">in</span> sorted<span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token operator">=</span>str<span class="token punctuation">.</span>upper<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>word<span class="token punctuation">,</span> index<span class="token punctuation">[</span>word<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token keyword">with</span> open<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> fp<span class="token punctuation">:</span>
+        dict_get<span class="token punctuation">(</span>fp<span class="token punctuation">)</span>
+        dict_setdefault<span class="token punctuation">(</span>fp<span class="token punctuation">)</span>
+</code></pre>
+<p>对比<code>dict_get</code>和<code>dict_setdefault</code>两种方法可发现<code>setdefault</code>更加方便。</p>
+<ul>
+<li>有关于字典排序：对于字典<code>d</code>，如果希望对其进行按<code>key</code>排序，可以直接使用<code>sorted(d)</code>，如果希望对其进行值的排序，则可以：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">for</span> key <span class="token keyword">in</span> sorted<span class="token punctuation">(</span>d<span class="token punctuation">,</span> key<span class="token operator">=</span>d<span class="token punctuation">.</span>get<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> d<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>关于正则表达式匹配的几个函数<code>match</code>、<code>search</code>、<code>findall</code>、<code>finditer</code>：<code>match</code>成功匹配会返回<code>Match</code>对象，失败会返回<code>None</code>；<code>search</code>类似<code>match</code>，但只返回第一个匹配字符串；<code>findall</code>返回为数组形式的结果；<code>finditer</code>返回迭代器形式的结果。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Chapter-3&quot;&gt;&lt;a href=&quot;#Chapter-3&quot; class=&quot;headerlink&quot; title=&quot;Chapter 3&quot;&gt;&lt;/a&gt;Chapter 3&lt;/h1&gt;&lt;h2 id=&quot;Generic-Mapping-Types（p64&quot;&gt;&lt;a href=&quot;#Generic-Mapping-Types（p64&quot; class=&quot;headerlink&quot; title=&quot;Generic Mapping Types（p64)&quot;&gt;&lt;/a&gt;Generic Mapping Types（p64)&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;可哈希：如果一个对象在它的生命周期中有一个不会改变的哈希值（它需要有&lt;code&gt;__hash__()&lt;/code&gt;函数），并且它能够和其他对象进行比较（需要有&lt;code&gt;__eq__()&lt;/code&gt;函数）。可哈希的对象相等必须拥有相同的哈希值。&lt;code&gt;str&lt;/code&gt;、&lt;code&gt;bytes&lt;/code&gt;以及数类型都是可哈希的；&lt;code&gt;frozenset&lt;/code&gt;也总是可哈希的，因为它的元素必须可哈希；&lt;code&gt;tuple&lt;/code&gt;仅当它包含的所有元素可哈希是它才是可哈希的。例：&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="笔记" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>动画小记：亚人酱有话要说</title>
@@ -636,7 +762,7 @@ coordinates: LatLong(lat=28.613889, long=77.208889)
     <link href="http://yoursite.com/2017/07/26/FluentPython%E7%AC%94%E8%AE%B00x02/"/>
     <id>http://yoursite.com/2017/07/26/FluentPython笔记0x02/</id>
     <published>2017-07-26T00:57:06.000Z</published>
-    <updated>2017-07-27T03:43:50.822Z</updated>
+    <updated>2017-08-16T03:07:49.001Z</updated>
     
     <content type="html"><![CDATA[<p>嗯，记点单词。</p>
 <h2 id="p14"><a href="#p14" class="headerlink" title="p14"></a>p14</h2><ul>
@@ -663,7 +789,7 @@ codes <span class="token operator">=</span> <span class="token punctuation">[</s
 </code></pre>
 <p>for循环的功能有很多，诸如扫描队列并取出元素、计算总和等等，但是listcomp(list comprehension, 列表推导式)的功能就只有生成一个新列表。从这个角度来看后者可读性更高。</p>
 <ul>
-<li>在Python 2中，如果列表推导式、生成器表达式的作用域中的变量名和外面有重复的话是会禅师冲突的。虽然Python 3解决了这一问题，但是在写代码时还是避免这种情况。</li>
+<li>在Python 2中，如果列表推导式、生成器表达式的作用域中的变量名和外面有重复的话是会产生冲突的。虽然Python 3解决了这一问题，但是在写代码时还是避免这种情况。</li>
 </ul>
 <h2 id="p23"><a href="#p23" class="headerlink" title="p23"></a>p23</h2><ul>
 <li>Cartesian product: 笛卡尔积。下面的代码为推荐写法。</li>
