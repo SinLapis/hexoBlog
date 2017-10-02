@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Tag: galgame | SinLapis的博客</title>
+  <title>Archives: 2017/9 | SinLapis的博客</title>
   <meta name="description" content="null" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="SinLapis的博客">
-<meta property="og:url" content="http://yoursite.com/tags/galgame/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2017/09/index.html">
 <meta property="og:site_name" content="SinLapis的博客">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SinLapis的博客">
@@ -109,8 +109,9 @@
     <div class='container clearfix'>
       <div class='l_main'>
         
+	
   <script>
-    window.subData= { title:'Tag : galgame'}
+    window.subData= { title:'Year : 2017.9'}
   </script>
 
 <section class="post-list">
@@ -120,39 +121,58 @@
   <section class="meta">
     
     <h2 class="title">
-      <a href="/2017/08/19/galgame小记：白熊铃星群/">
-        galgame小记：白熊铃星群
+      <a href="/2017/09/15/FluentPython笔记0x07/">
+        FluentPython笔记0x07
       </a>
     </h2>
     
     <time>
-      8月 19, 2017
+      9月 15, 2017
     </time>
 		
     
     <div class='cats'>
-        <a href="/categories/ACG/">ACG</a>
+        <a href="/categories/Python/">Python</a>
     </div>
 
   </section>
   <section class="article typo">
-	  <p><img src="http://wx1.sinaimg.cn/mw690/872f2373gy1fiotk4iuxdj20hl0b10v7.jpg" alt="白熊铃星群"></p>
-<h1 id="白熊铃星群（PULLTOP，2009）："><a href="#白熊铃星群（PULLTOP，2009）：" class="headerlink" title="白熊铃星群（PULLTOP，2009）："></a>白熊铃星群（PULLTOP，2009）：</h1><p>未完……</p>
+	  <h2 id="Mappings-with-Flexible-Key-Lookup（p70）"><a href="#Mappings-with-Flexible-Key-Lookup（p70）" class="headerlink" title="Mappings with Flexible Key Lookup（p70）"></a>Mappings with Flexible Key Lookup（p70）</h2><ul>
+<li><p><code>defaultdict</code>：类似与<code>dict.default()</code>，可创建一个带有默认值类型的<code>dict</code>，例如<code>defaultdict(int)</code>，则遇到不存在的Key时，其取值为0。这个过程中会调用<code>default_factory</code>，进而会调用special method <code>__missing__</code>。</p>
+</li>
+<li><p><code>__missing__</code>：该special method没有在<code>dict</code>中定义，但如果在<code>dict</code>的子类中定义<code>__missing__</code>，则<code>__getitem__</code>在遇到缺失的key时不会抛出<code>KeyError</code>，而是会转而调用<code>__missing__</code>。<code>__missing__</code>在其他时候不会被调用，例如<code>__contains__</code>。</p>
+</li>
+<li><p>例3-7：</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">class</span> <span class="token class-name">StrKeyDict0</span><span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    
-	  <div class="readmore">
-      <a href="/2017/08/19/galgame小记：白熊铃星群/">Read More</a>
-    </div>
+    <span class="token keyword">def</span> <span class="token function">__missing__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>key<span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> KeyError<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">[</span>str<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> default<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+        <span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> default
+
+    <span class="token keyword">def</span> <span class="token function">__contains__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">or</span> str<span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>有两处需要注意：<br>1.在<code>__missing__</code>中，<code>isinstance</code>的检查不可少。<code>__missing__</code>被调用时，情况有三种：（1）是<code>int</code>型，但其<code>str</code>型在<code>dict</code>中；（2）是<code>int</code>型，且<code>str</code>型不在<code>dict</code>中；（3）是<code>str</code>型但不在<code>dict</code>中。如果没有<code>isinstance</code>的过滤，<code>str</code>型也不在<code>dict</code>中时<code>self[str(key)]</code>还会调用<code>__missing__</code>，陷入死循环。<br>2.在<code>__contains__</code>中，没有使用<code>key in dict</code>而是用<code>key in dict.keys()</code>是因为前者依然会调用<code>__missing__</code>，而导致<code>int</code>型的<code>2</code>也会在<code>dict</code>的<code>keys</code>中。</p>
+
+
     
     
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/ACG/">ACG</a>
+        <a href="/tags/Python/">Python</a>
       
-        <a href="/tags/galgame/">galgame</a>
-      
-        <a href="/tags/PULLTOP/">PULLTOP</a>
+        <a href="/tags/笔记/">笔记</a>
       
 	  </div>
     
@@ -165,13 +185,13 @@
   <section class="meta">
     
     <h2 class="title">
-      <a href="/2017/07/13/gal填坑进度0x00/">
-        gal填坑进度0x00
+      <a href="/2017/09/13/动画小记：声之形/">
+        动画小记：声之形
       </a>
     </h2>
     
     <time>
-      7月 13, 2017
+      9月 13, 2017
     </time>
 		
     
@@ -181,11 +201,11 @@
 
   </section>
   <section class="article typo">
-	  <p>ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……<br>目前还能想到的坑：</p>
+	  <h1 id="电影版-声之形（京都动画，2016）：-2"><a href="#电影版-声之形（京都动画，2016）：-2" class="headerlink" title="电影版 声之形（京都动画，2016）：+2"></a>电影版 声之形（京都动画，2016）：+2</h1><p>这篇先谈谈个人评价，可能还会有下一篇谈谈个人对演出的理解。</p>
 
     
 	  <div class="readmore">
-      <a href="/2017/07/13/gal填坑进度0x00/">Read More</a>
+      <a href="/2017/09/13/动画小记：声之形/">Read More</a>
     </div>
     
     
@@ -194,7 +214,7 @@
       
         <a href="/tags/ACG/">ACG</a>
       
-        <a href="/tags/galgame/">galgame</a>
+        <a href="/tags/动画小记/">动画小记</a>
       
 	  </div>
     
@@ -203,6 +223,7 @@
     </div>
   
 </section>
+
 
 
       </div>

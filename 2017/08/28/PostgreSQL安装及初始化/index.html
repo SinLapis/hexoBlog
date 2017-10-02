@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>gal填坑进度0x00 | SinLapis的博客</title>
+  <title>PostgreSQL安装及初始化 | SinLapis的博客</title>
   <meta name="description" content="null" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,17 +12,17 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="SinLapis的博客">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……目前还能想到的坑：">
-<meta name="keywords" content="ACG,galgame">
+  <meta name="description" content="参考：https://www.mtyun.com/library/28/how-to-install-postgresql9/本文安装环境为CentOS 6.4，安装PostgreSQL版本为9.3">
+<meta name="keywords" content="PostgreSQL,CentOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gal填坑进度0x00">
-<meta property="og:url" content="http://yoursite.com/2017/07/13/gal填坑进度0x00/index.html">
+<meta property="og:title" content="PostgreSQL安装及初始化">
+<meta property="og:url" content="http://yoursite.com/2017/08/28/PostgreSQL安装及初始化/index.html">
 <meta property="og:site_name" content="SinLapis的博客">
-<meta property="og:description" content="ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……目前还能想到的坑：">
-<meta property="og:updated_time" content="2017-07-19T02:17:21.004Z">
+<meta property="og:description" content="参考：https://www.mtyun.com/library/28/how-to-install-postgresql9/本文安装环境为CentOS 6.4，安装PostgreSQL版本为9.3">
+<meta property="og:updated_time" content="2017-08-28T03:51:28.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gal填坑进度0x00">
-<meta name="twitter:description" content="ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……目前还能想到的坑：">
+<meta name="twitter:title" content="PostgreSQL安装及初始化">
+<meta name="twitter:description" content="参考：https://www.mtyun.com/library/28/how-to-install-postgresql9/本文安装环境为CentOS 6.4，安装PostgreSQL版本为9.3">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -113,56 +113,68 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        <article id="post-gal填坑进度0x00"
+        <article id="post-PostgreSQL安装及初始化"
   class="post white-box article-type-post"
   itemscope itemprop="blogPost">
 	<section class='meta'>
 	<h2 class="title">
-  	<a href="/2017/07/13/gal填坑进度0x00/">
-    	gal填坑进度0x00
+  	<a href="/2017/08/28/PostgreSQL安装及初始化/">
+    	PostgreSQL安装及初始化
     </a>
   </h2>
 	<time>
-	  7月 13, 2017
+	  8月 28, 2017
 	</time>
 	
     
     <div class='cats'>
-        <a href="/categories/ACG/">ACG</a>
+        <a href="/categories/Database/">Database</a>
     </div>
 
 	</section>
 	
-		<section class="toc-wrapper"></section>
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装ca-certificates"><span class="toc-number">1.</span> <span class="toc-text">安装ca-certificates</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装PostgreSQL-9-3"><span class="toc-number">2.</span> <span class="toc-text">安装PostgreSQL 9.3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置环境变量"><span class="toc-number">3.</span> <span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化并启动数据库"><span class="toc-number">4.</span> <span class="toc-text">初始化并启动数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改账户密码"><span class="toc-number">5.</span> <span class="toc-text">修改账户密码</span></a></li></ol></section>
 	
 	<section class="article typo">
   	<div class="article-entry" itemprop="articleBody">
-    	<p>ftb专家模式实在是肝不动了，准备回归剧情向游戏，然后看看动画什么的，还有就是希望能够把日语捡起来……<br>目前还能想到的坑：</p>
+    	<p>参考：<a href="https://www.mtyun.com/library/28/how-to-install-postgresql9/" target="_blank" rel="external">https://www.mtyun.com/library/28/how-to-install-postgresql9/</a><br>本文安装环境为CentOS 6.4，安装PostgreSQL版本为9.3</p>
 <a id="more"></a>
-<p>* 战国兰斯（Alicesoft）</p>
-<p>* 车轮之国，向日葵的少女（AKABEiSOFT2）</p>
-<p>* 白色相簿2（Leaf）</p>
-<p>* 秽翼的尤斯蒂娅（August）</p>
-<p> 更胜夜明前的琉璃色（August）</p>
-<p> * Little Busters!(Key)</p>
-<p> 神采（Eushully）</p>
-<p> 姬狩（Eushully）</p>
-<p> D.C.P.C（Circus）</p>
-<p> D.C.II（Circus）</p>
-<p> 公主恋人（Ricotta）</p>
-<p> 恋爱少女和守护之盾（AXL）</p>
-<p> 遥仰凰华（PULLTOP）</p>
-<p> 白熊铃星群（PULLTOP）</p>
-<p> 为了明日与君相逢（PULLTOP）</p>
-<p> 看样子这些够一段时间的了……其他的再说吧~</p>
+<h1 id="安装ca-certificates"><a href="#安装ca-certificates" class="headerlink" title="安装ca-certificates"></a>安装ca-certificates</h1><p>由于官网提供的yum仓库为https，需要安装<code>ca-certificates</code>：</p>
+<pre class=" language-shell"><code class="language-shell">yum install ca-certificates
+</code></pre>
+<h1 id="安装PostgreSQL-9-3"><a href="#安装PostgreSQL-9-3" class="headerlink" title="安装PostgreSQL 9.3"></a>安装PostgreSQL 9.3</h1><pre class=" language-shell"><code class="language-shell">
+yum install http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-2.noarch.rpm
+yum install postgresql93-server postgresql93-contrib
+</code></pre>
+<h1 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h1><p>新建数据库物理文件的存放目录：</p>
+<pre class=" language-shell"><code class="language-shell">mkdir -p /home/postgres/data
+</code></pre>
+<p>使用用户<code>postgres</code>管理PostgreSQL并配置环境变量：</p>
+<pre class=" language-shell"><code class="language-shell">
+su - postgres
+cp /etc/skel/.bash* /var/lib/pgsql
+</code></pre>
+<p>修改<code>/var/lib/pgsql/.bashrc</code>：</p>
+<pre><code>export PGDATA=/home/postgres/data
+export PATH=/usr/pgsql-9.3/bin:$PATH
+</code></pre><p>其中<code>PGDATA</code>为数据库物理文件的存放目录。<br>重新加载<code>.bashrc</code>：</p>
+<pre class=" language-shell"><code class="language-shell">source .bashrc
+</code></pre>
+<h1 id="初始化并启动数据库"><a href="#初始化并启动数据库" class="headerlink" title="初始化并启动数据库"></a>初始化并启动数据库</h1><pre class=" language-shell"><code class="language-shell">
+initdb
+pg_ctl start
+</code></pre>
+<h1 id="修改账户密码"><a href="#修改账户密码" class="headerlink" title="修改账户密码"></a>修改账户密码</h1><p>在终端输入<code>psql</code>进入PostgreSQL交互界面：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">alter</span> <span class="token keyword">user</span> postgres <span class="token keyword">with</span> password <span class="token string">'password'</span><span class="token punctuation">;</span>
+</code></pre>
 
   	</div>
 	  
 	  <div class="article-tags tags">
       
-        <a href="/tags/ACG/">ACG</a>
+        <a href="/tags/PostgreSQL/">PostgreSQL</a>
       
-        <a href="/tags/galgame/">galgame</a>
+        <a href="/tags/CentOS/">CentOS</a>
       
 	  </div>
     
@@ -170,13 +182,13 @@
 	
 		<div class="art-item-footer">
 				
-					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2017/07/19/VMWare共享文件夹设置/" rel="prev"  title="VMWare共享文件夹设置">
-						VMWare共享文件夹设置 
+					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2017/09/13/动画小记：声之形/" rel="prev"  title="动画小记：声之形">
+						动画小记：声之形 
 					</a></span>
 				
 				
-					<span class="art-item-right">next：<a href="/2017/07/05/FluentPython笔记0x00/" rel="next"  title="Fluent Python笔记0x00">
-						Fluent Python笔记0x00
+					<span class="art-item-right">next：<a href="/2017/08/19/galgame小记：白熊铃星群/" rel="next"  title="galgame小记：白熊铃星群">
+						galgame小记：白熊铃星群
 					</a><i class="icon icon-chevron-thin-right"></i></span>
 				
 		</div>
@@ -186,7 +198,7 @@
 </article>
 <script>
 	window.subData = {
-		title: 'gal填坑进度0x00',
+		title: 'PostgreSQL安装及初始化',
 		tools: true
 	}
 </script>

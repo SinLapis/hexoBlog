@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-19T02:56:27.400Z</updated>
+  <updated>2017-09-15T12:56:44.375Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,146 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>FluentPython笔记0x07</title>
+    <link href="http://yoursite.com/2017/09/15/FluentPython%E7%AC%94%E8%AE%B00x07/"/>
+    <id>http://yoursite.com/2017/09/15/FluentPython笔记0x07/</id>
+    <published>2017-09-15T11:28:22.000Z</published>
+    <updated>2017-09-15T12:56:44.375Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Mappings-with-Flexible-Key-Lookup（p70）"><a href="#Mappings-with-Flexible-Key-Lookup（p70）" class="headerlink" title="Mappings with Flexible Key Lookup（p70）"></a>Mappings with Flexible Key Lookup（p70）</h2><ul>
+<li><p><code>defaultdict</code>：类似与<code>dict.default()</code>，可创建一个带有默认值类型的<code>dict</code>，例如<code>defaultdict(int)</code>，则遇到不存在的Key时，其取值为0。这个过程中会调用<code>default_factory</code>，进而会调用special method <code>__missing__</code>。</p>
+</li>
+<li><p><code>__missing__</code>：该special method没有在<code>dict</code>中定义，但如果在<code>dict</code>的子类中定义<code>__missing__</code>，则<code>__getitem__</code>在遇到缺失的key时不会抛出<code>KeyError</code>，而是会转而调用<code>__missing__</code>。<code>__missing__</code>在其他时候不会被调用，例如<code>__contains__</code>。</p>
+</li>
+<li><p>例3-7：</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">class</span> <span class="token class-name">StrKeyDict0</span><span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__missing__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>key<span class="token punctuation">,</span> str<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> KeyError<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">[</span>str<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> default<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+        <span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> default
+
+    <span class="token keyword">def</span> <span class="token function">__contains__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">or</span> str<span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>有两处需要注意：<br>1.在<code>__missing__</code>中，<code>isinstance</code>的检查不可少。<code>__missing__</code>被调用时，情况有三种：（1）是<code>int</code>型，但其<code>str</code>型在<code>dict</code>中；（2）是<code>int</code>型，且<code>str</code>型不在<code>dict</code>中；（3）是<code>str</code>型但不在<code>dict</code>中。如果没有<code>isinstance</code>的过滤，<code>str</code>型也不在<code>dict</code>中时<code>self[str(key)]</code>还会调用<code>__missing__</code>，陷入死循环。<br>2.在<code>__contains__</code>中，没有使用<code>key in dict</code>而是用<code>key in dict.keys()</code>是因为前者依然会调用<code>__missing__</code>，而导致<code>int</code>型的<code>2</code>也会在<code>dict</code>的<code>keys</code>中。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Mappings-with-Flexible-Key-Lookup（p70）&quot;&gt;&lt;a href=&quot;#Mappings-with-Flexible-Key-Lookup（p70）&quot; class=&quot;headerlink&quot; title=&quot;Mappings with Fl
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="笔记" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>动画小记：声之形</title>
+    <link href="http://yoursite.com/2017/09/13/%E5%8A%A8%E7%94%BB%E5%B0%8F%E8%AE%B0%EF%BC%9A%E5%A3%B0%E4%B9%8B%E5%BD%A2/"/>
+    <id>http://yoursite.com/2017/09/13/动画小记：声之形/</id>
+    <published>2017-09-13T08:19:01.000Z</published>
+    <updated>2017-09-13T09:37:55.633Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="电影版-声之形（京都动画，2016）：-2"><a href="#电影版-声之形（京都动画，2016）：-2" class="headerlink" title="电影版 声之形（京都动画，2016）：+2"></a>电影版 声之形（京都动画，2016）：+2</h1><p>这篇先谈谈个人评价，可能还会有下一篇谈谈个人对演出的理解。</p>
+<a id="more"></a>
+<h2 id="剧情：-2"><a href="#剧情：-2" class="headerlink" title="剧情：+2"></a>剧情：+2</h2><p>《声之形》最大的争议莫过于剧情。其中包括认为《声之形》给欺凌者洗白、隐含自杀诱导、消费残障、女主圣母等等。这里我就根据某些评价来写写自己的看法。<br>我觉得就像山田在访谈中说道的一样，我认为本作是关于人与人的交流以及自我救赎的故事。女主由于耳聋而无法与周围人顺利的沟通与交流，因而产生了极度的自卑，我认为这种自卑也是后来她能够原谅男主的重要原因，而不是向很多人所说“以德报怨，何以报德？”，因为这不是德和怨的问题，这种记仇需要建立在自尊之上，但是极度自卑的女主是没法做到这一点的。此外，欺负女主的绝不止男主一个，只是因为本作是男主的成长历程，所以描写重点都在男主身上。接着这点说开，有人认为“女主被欺负的很惨，男主后来也被欺负的很惨，所以他们同病相怜，男主得到原谅”，我的想法是男主的目的是自我的救赎，在他一度认为自己不可原谅的时候选择了自杀（这点女主和男主很像），但是后来男主还是朝着心中所想行动。自杀是一种自我否定，是自我救赎的反面，而本片是正面表现自我救赎，自杀诱导根本无从谈起。关于消费残障，这点我的理解是原作者本意是想创造一个阻碍人与人交流的因素，从而引出接下来的欺凌事件以及后来的自我救赎，耳聋只是其中一个，或者说是原作者选择的一个因素，而不是原作者想描写残障人士的艰辛。<br>本作受篇幅所限，没能描写其他人的故事略显遗憾。但是结局处男主开始倾听世界是我认为本作中最棒的片段。<br>说点有趣的，有人问原作者女主向男主告白时男主错把“喜欢（好き）”听成“月亮（つき）”是不是借用夏目漱石的梗，原作者很惊讶，说，不是。其实这就是一个典型的所谓的“过度解读”，但是明显比原作者高明的解读。</p>
+<h2 id="动画：-2"><a href="#动画：-2" class="headerlink" title="动画：+2"></a>动画：+2</h2><p>依然是京都一丝不苟的作画，以及山田的惊艳演出。令人记忆深刻的片段太多，例如男主和女主再次相遇时女主的表情、文化祭上男主和“朋友”们相会时等等。另外bangumi上有大神考察了本作中出现的花以及花语，几乎都在暗示着剧情走向，依旧是熟悉的山田风格。</p>
+<h2 id="角色：-1"><a href="#角色：-1" class="headerlink" title="角色：+1"></a>角色：+1</h2><p>本作角色塑造还可以，除了男女主外，其他人笔墨不足，还有描写空间。有关于川井是不是bitch，我和朋友讨论之后认为这个女的很婊，但是原作者和山田都说她是天生的圣女，理解不能。</p>
+<h2 id="音乐：-2"><a href="#音乐：-2" class="headerlink" title="音乐：+2"></a>音乐：+2</h2><p>牛尾宪辅在最后一幕的配乐彻底征服了我，就是一首lit(var)，在“轰”的一下之后真的给人一种自我解放，世界宽广的感觉，简直太棒。</p>
+<h2 id="配音：-2"><a href="#配音：-2" class="headerlink" title="配音：+2"></a>配音：+2</h2><p>最值得称赞的应该是早见小天使，虽然台词不多，但是这种配音应该不简单。凹酱也很棒！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;电影版-声之形（京都动画，2016）：-2&quot;&gt;&lt;a href=&quot;#电影版-声之形（京都动画，2016）：-2&quot; class=&quot;headerlink&quot; title=&quot;电影版 声之形（京都动画，2016）：+2&quot;&gt;&lt;/a&gt;电影版 声之形（京都动画，2016）：+2&lt;/h1&gt;&lt;p&gt;这篇先谈谈个人评价，可能还会有下一篇谈谈个人对演出的理解。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ACG" scheme="http://yoursite.com/categories/ACG/"/>
+    
+    
+      <category term="ACG" scheme="http://yoursite.com/tags/ACG/"/>
+    
+      <category term="动画小记" scheme="http://yoursite.com/tags/%E5%8A%A8%E7%94%BB%E5%B0%8F%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PostgreSQL安装及初始化</title>
+    <link href="http://yoursite.com/2017/08/28/PostgreSQL%E5%AE%89%E8%A3%85%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
+    <id>http://yoursite.com/2017/08/28/PostgreSQL安装及初始化/</id>
+    <published>2017-08-28T03:11:31.000Z</published>
+    <updated>2017-08-28T03:51:28.534Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：<a href="https://www.mtyun.com/library/28/how-to-install-postgresql9/" target="_blank" rel="external">https://www.mtyun.com/library/28/how-to-install-postgresql9/</a><br>本文安装环境为CentOS 6.4，安装PostgreSQL版本为9.3</p>
+<a id="more"></a>
+<h1 id="安装ca-certificates"><a href="#安装ca-certificates" class="headerlink" title="安装ca-certificates"></a>安装ca-certificates</h1><p>由于官网提供的yum仓库为https，需要安装<code>ca-certificates</code>：</p>
+<pre class=" language-shell"><code class="language-shell">yum install ca-certificates
+</code></pre>
+<h1 id="安装PostgreSQL-9-3"><a href="#安装PostgreSQL-9-3" class="headerlink" title="安装PostgreSQL 9.3"></a>安装PostgreSQL 9.3</h1><pre class=" language-shell"><code class="language-shell">
+yum install http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-2.noarch.rpm
+yum install postgresql93-server postgresql93-contrib
+</code></pre>
+<h1 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h1><p>新建数据库物理文件的存放目录：</p>
+<pre class=" language-shell"><code class="language-shell">mkdir -p /home/postgres/data
+</code></pre>
+<p>使用用户<code>postgres</code>管理PostgreSQL并配置环境变量：</p>
+<pre class=" language-shell"><code class="language-shell">
+su - postgres
+cp /etc/skel/.bash* /var/lib/pgsql
+</code></pre>
+<p>修改<code>/var/lib/pgsql/.bashrc</code>：</p>
+<pre><code>export PGDATA=/home/postgres/data
+export PATH=/usr/pgsql-9.3/bin:$PATH
+</code></pre><p>其中<code>PGDATA</code>为数据库物理文件的存放目录。<br>重新加载<code>.bashrc</code>：</p>
+<pre class=" language-shell"><code class="language-shell">source .bashrc
+</code></pre>
+<h1 id="初始化并启动数据库"><a href="#初始化并启动数据库" class="headerlink" title="初始化并启动数据库"></a>初始化并启动数据库</h1><pre class=" language-shell"><code class="language-shell">
+initdb
+pg_ctl start
+</code></pre>
+<h1 id="修改账户密码"><a href="#修改账户密码" class="headerlink" title="修改账户密码"></a>修改账户密码</h1><p>在终端输入<code>psql</code>进入PostgreSQL交互界面：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">alter</span> <span class="token keyword">user</span> postgres <span class="token keyword">with</span> password <span class="token string">'password'</span><span class="token punctuation">;</span>
+</code></pre>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考：&lt;a href=&quot;https://www.mtyun.com/library/28/how-to-install-postgresql9/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.mtyun.com/library/28/how-to-install-postgresql9/&lt;/a&gt;&lt;br&gt;本文安装环境为CentOS 6.4，安装PostgreSQL版本为9.3&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Database" scheme="http://yoursite.com/categories/Database/"/>
+    
+    
+      <category term="PostgreSQL" scheme="http://yoursite.com/tags/PostgreSQL/"/>
+    
+      <category term="CentOS" scheme="http://yoursite.com/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>galgame小记：白熊铃星群</title>
     <link href="http://yoursite.com/2017/08/19/galgame%E5%B0%8F%E8%AE%B0%EF%BC%9A%E7%99%BD%E7%86%8A%E9%93%83%E6%98%9F%E7%BE%A4/"/>
     <id>http://yoursite.com/2017/08/19/galgame小记：白熊铃星群/</id>
     <published>2017-08-19T02:20:51.000Z</published>
-    <updated>2017-08-19T02:56:27.400Z</updated>
+    <updated>2017-09-13T09:09:43.061Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://wx1.sinaimg.cn/mw690/872f2373gy1fiotk4iuxdj20hl0b10v7.jpg" alt="白熊铃星群"></p>
 <h1 id="白熊铃星群（PULLTOP，2009）："><a href="#白熊铃星群（PULLTOP，2009）：" class="headerlink" title="白熊铃星群（PULLTOP，2009）："></a>白熊铃星群（PULLTOP，2009）：</h1><p>未完……</p>
@@ -30,6 +165,7 @@
 <p>第一个也是莉莉可线的主要矛盾，就是超出本职、本人能力的问题要不要去解决。在本作中原来莉莉可想给担当范围外的孩子发送礼物，但是却导致了事故。这也成了莉莉可心里的阴影。在本线中给出的答案是自我满足就好了。虽然我也表示赞同，但其实这种问题也应该就事论事。比如那个送礼物的问题，如果不能暴露圣诞老人的身份，那么不以圣诞老人的身份尝试去送礼物怎么样呢？虽然可能没法再圣诞夜里送出礼物，但是总比没送出去还出了事故强。不过话说回来，我认为在不损害他人利益下自我满足才是正常的选择。</p>
 <p>第二个问题是相不相信有圣诞老人。这个问题延伸一下就是相不相信神明。虽然在本作中确实是有圣诞老人，不过本线中亚美到最后也没有说她相不相信有圣诞老人。虽然相信还是不相信可能只有几个字，但是如果说要给出一个有理有据的原因，恐怕双方都没法说服对方。</p>
 <p>总之，莉莉可线我认为非常不错，无论是故事以及内涵。不过HS总感觉未来数位阉割过，初次都没有剧情的，差评。</p>
+<h2 id="云母线：-2"><a href="#云母线：-2" class="headerlink" title="云母线：-2"></a>云母线：-2</h2><p>什么都没讲，两个字，辣鸡。</p>
 ]]></content>
     
     <summary type="html">
