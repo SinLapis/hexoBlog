@@ -10,7 +10,7 @@ author: SinLapis
 desc: あなたは今とこで何をしていますか？この空の续く场所にいますか？
 language: zh-CN
 timezone: Asia/Shanghai
-avatar: http://wx4.sinaimg.cn/mw690/872f2373gy1fh9xgg2igyj20cm0cm3zw.jpg
+avatar: source/images/3774d809.jpg
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -65,7 +65,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: material-flow
+theme: melody
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
