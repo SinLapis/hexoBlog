@@ -71,8 +71,9 @@ theme: melody
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: ssh://git@git.coding.net/SinLapis/SinLapis.git
-  branch: master
+  repo: 
+    coding: ssh://git@git.coding.net/SinLapis/SinLapis.git,master
+    github: ssh://git@github.com/SinLapis/sinlapis.github.io.git,master
 # Plugins
 prism_plugin:
   mode: 'preprocess'    # realtime/preprocess
