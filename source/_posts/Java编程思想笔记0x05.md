@@ -19,7 +19,8 @@ tags:
 - `Object`对象有方法`getClass()`可以获取相应`Class`对象引用。
 - `Class#getSimpleName()`返回不含包名的类名，`Class#getCanonicalName()`返回全限定的类名。
 - `Class#getSuperclass()`返回其基类的`Class`对象
-- 关于`Class#newInstance()`：该方法已于Java 9声明废弃，使用`Class#getDeclaredConstructor().newInstance()`代替。
+
+> 关于`Class#newInstance()`：该方法已于Java 9声明废弃，使用`Class#getDeclaredConstructor().newInstance()`代替。
 
 ### 泛化的Class引用
 
