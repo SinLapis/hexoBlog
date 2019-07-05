@@ -94,3 +94,75 @@ class GenericWriting {
 ```
 
 相对应的，读取的代码可以使用子类型通配符，使读取对象时实现向上转型。
+
+```java
+class GenericReading {
+    static <T> T readExact(List<T> list) {
+        return list.get(0);
+    }
+    static List<Apple> apples = Arrays.asList(new Apple());
+    static List<Fruit> fruits = Arrays.asList(new Fruit());
+    static void f1() {
+        Apple a = readExact(apples);
+        Fruit f = readExact(fruits);
+        f = readExact(apples);
+    }
+    
+    static class Reader<T> {
+        T readExact(List<T> list) {
+            return list.get(0);
+        }
+    }
+    static void f2() {
+        Reader<Fruit> fruitReader = new Reader<>();
+        //Fruit a = fruitReader.readExact(apples); // Error
+    }
+    static class CovariantReader<T> {
+        T readCovariant(List<? extends T> list) {
+            return list.get(0);
+        }
+    }
+    static void f3() {
+        CovariantReader<Fruit> fruitCovariantReader = new CovariantReader<>();
+        Fruit f = fruitCovariantReader.readCovariant(fruits);
+        Fruit a = fruitCovariantReader.readCovariant(apples);
+    }
+}
+```
+
+在上面的代码中，静态方法`readExact()`由于类型参数由`list`决定，所以正确返回了`Apple`对象并向上转型。如果只是读取，可以不使用泛型。而在`f2()`中，由于创建泛型类时先指定了类型参数为`Fruit`，因此`Reader#readExact()`不能接受`List<Apple>`参数。此时使用子类通配符即可解决问题。
+
+### 无界通配符
+
+- 使用无界通配符表示，当前不知道（或者不需要知道）具体类型，但是不影响对其进行操作。例如可以从`List<?>`中取值出来（但是会丢失类型信息），不可以向其中写入。
+
+### 捕获转换
+
+- 如果向一个使用`<?>`的方法传递原生类型，对于编译器来说，可能会推断出实际的类型参数，使得这个方法可以回转并调用另一个使用这个确切类型的方法，即捕获转换。
+
+```java
+public class Main {
+    static <T> T f1(List<T> list) {
+        T t = list.get(0);
+        return t;
+    }
+
+    static void f2(List<?> list) {
+        f1(list);
+    }
+
+    public static void main(String[] args) {
+        List list = new ArrayList<>();
+        list.add(0);
+        f1(list);
+        f2(list);
+    }
+}
+```
+
+上面代码中，`main()`方法中调用`f1(list)`是有警告的，而经过`f2()`的捕获转换后警告消失了。
+
+## 问题
+
+
+
