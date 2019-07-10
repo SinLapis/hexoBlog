@@ -106,23 +106,29 @@ tags:
 
 ## 实用方法
 
-| 方法                                                         | 说明 |
-| ------------------------------------------------------------ | ---- |
-| `max(Collection)`, `min(Collection)`                         |      |
-| `max(Collection, Comparator)`, `min(Collection, Comparator)` |      |
-| `indexOfSubList(List source, List target)`                   |      |
-| `lastIndexOfSubList(List source, List target)`               |      |
-| `replaceAll(List<T>, T oldVal, T newVal)`                    |      |
-| `reverse(List)`                                              |      |
-| `reverseOrder()`, `reverseOrder(Comparator<T>)`              |      |
-| `rotate(List, int distance)`                                 |      |
-| `shuffle(List)`, `shuffle(List, Random)`                     |      |
-| `sort(List<T>)`, `sort(List<T>, Comparator<? super T> c)`    |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
+| 方法                                                         | 说明                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `max(Collection)`, `min(Collection)`                         | 返回参数`Collection`中最大或者最小的元素，采用`Collection`中内置的自然比较法 |
+| `max(Collection, Comparator)`, `min(Collection, Comparator)` | 返回参数`Collection`中最大或最小的元素，采用参数中的`Comparator`进行比较 |
+| `indexOfSubList(List source, List target)`                   | 返回`target`在`source`中第一次出现的位置，或者在找不到时返回`-1` |
+| `lastIndexOfSubList(List source, List target)`               | 返回`target`在`source`中最后一次出现的位置，或者在找不到时返回`-1` |
+| `replaceAll(List<T>, T oldVal, T newVal)`                    | 使用`newVal`替换所有`oldVal`                                 |
+| `reverse(List)`                                              | 逆转所有元素的次序                                           |
+| `reverseOrder()`, `reverseOrder(Comparator<T>)`              | 返回一个`Comparator`，它可以以逆转实现了`Comparator<T>`的对象集合的自然顺序。第二个版本可以逆转所提供的`Comparator`的顺序 |
+| `rotate(List, int distance)`                                 | 所有元素向后移动`distance`个位置，将末尾的元素循环到前面来   |
+| `shuffle(List)`, `shuffle(List, Random)`                     | 随机改变指定列表顺序。第一种形式提供其自己的随机机制，第二种则来源于参数`Random`对象 |
+| `sort(List<T>)`, `sort(List<T>, Comparator<? super T> c)`    | 使用`List<T>`中的自然顺序排序。第二种形式允许提供用于排序的`Comparator` |
+| `copy(List<? super T> dest, List<? extends T> src)`          | 将`src`中的元素复制到`dest`                                  |
+| `swap(List, int i, int j)`                                   | 交换`list`中位置`i`与位置`j`的元素，通常比手动实现要快       |
+| `fill(LIst<? super T>, T x)`                                 | 用对象`x`替换`list`中的所有元素                              |
+| `disjoint(Collection, Collection)`                           | 当两个集合没有重复元素时返回`true`                           |
+| `frequency(Collection, Object x)`                            | 返回`Collection`中`x`出现的次数                              |
+| `emptyList()`, `emptyMap()`, `emptySet()`                    | 返回不可变且为泛型的`List`、`Map`、`Set`                     |
+| `singleton(T x)`, `singletonList(T x)`, `singletonMap(K key, V value)` | 产生不可变的`Set<T>`、`List<T>`、`Map<K, V>`。               |
 
+- 在比较字符串而使用`max()`、`min()`、`sort()`等方法时，使用参数`String.CASE_INSENSITIVE_ORDER`可以忽略大小写。
+
+### 同步控制
+
+- `Collections.synchonizedCollection()`可以传入一个新生成的容器，返回的是有同步功能的版本。类似的还有`Collections.synchonizedList()`、`Collections.synchonizedSet()`、`Collections.synchonizedMap()`等。
+- 快速报错：Java容器的一种保护机制，能够防止多个进程同时修改同一个容器的内容。它会探查容器上的任何除了当前进程进行的操作以外的所有变化，一旦发现其它进行修改了容器，就立刻抛出`ConcurrentModificationException`异常。
