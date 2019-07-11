@@ -85,3 +85,36 @@ public class Main {
 
 - `FileWriter`对象可以向文件写入数据。首先，创建一个与指定文件连接的`FileWriter`。此外，通常会用`BufferedWriter`将其包装来缓冲输出，因为缓冲往往能够显著地提高I/O性能。为了提供格式化机制，使用了`PrintWriter`装饰。最后，应该显式调用`Writer#close()`，否则缓冲区内容不会刷新清空，内容也不会写入文件。
 - 在Java SE5中，`PrintWriter`添加了一个辅助构造器，可以省略其它装饰器，直接填入文件名`String`即可。
+
+### 存储和恢复数据
+
+```java
+public class Main {
+    public static void main(String[] args) throws IOException {
+        DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("a.txt")));
+        out.writeDouble(3.14159);
+        out.writeUTF("That was pi");
+        out.writeDouble(1.41413);
+        out.writeUTF("Square root of 2");
+        out.close();
+        DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream("a.txt")));
+        System.out.println(in.readDouble());
+        System.out.println(in.readUTF());
+        System.out.println(in.readDouble());
+        System.out.println(in.readUTF());
+    }
+}
+```
+
+- 可以用`DataOutputStream`、`DataInputStream`以与机器无关方式从底层流中读写基本 Java 数据类型。
+- 当使用`DataOutputStream`写字符串并让`DataInputStream`能够恢复它的唯一可靠做法就是使用UTF-8编码，在上面代码中就是使用`writeUTF()`和`readUTF()`。
+- ASCII字符只占7位，为了避免空间浪费，UTF-8将ASCII字符编码成单一字节形式，而非ASCII字符则编码成两到三个字节的形式。另外，字符串的长度存储在UTF-8字符串的前两个字节。`writeUTF()`和`readUTF()`使用的是UTF-8变体。
+- 为了保证所有的读方法能够正常工作，必须知道流中数据项所在的确切位置，要么为文件中的数据采用固定的割舍，标准要么将额外的信息保存在文件中以便能够对其解析来确定数据的存放位置。
+
+## 标准I/O
+
+- 标准I/O是Unix中的概念，指程序所使用的单一信息流。程序的所有输入都可以来自标准输入，所有输出也都可以发送到标准输出，以及所有的错误信息都可以发送到标准错误。其意义在于，可以容易的吧程序传亮起来，一个程序的标准输出可以成为另一个程序的标准输入。
+
+### 从标准输入中读取
+
+- Java提供了`System.in`、`System.out`和`System.err`。`System.out`和`System.err`已经事先被包装成了`PrintStream`对象，`System.in`是没有被包装过的`InputStream`。
