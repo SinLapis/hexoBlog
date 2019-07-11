@@ -7,7 +7,7 @@ tags:
   - 笔记
 ---
 
-# Java I/O 系统
+# Java I/O 系统（一）
 
 ## File
 
@@ -119,21 +119,3 @@ tags:
 - 如果需要使用`readLine()`方法，就不应该使用`DataInputStream`，而用`BufferedReader`代替。
 
 > `DataInputStream#readLine()`方法已被废弃，因为它无法正确地将字节转换为字符。
-
-## I/O流典型的使用方式
-
-### 缓冲输入文件
-
-```java
-class BufferedInputFile {
-    public static String read(String filename) throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader(filename));
-        String s;
-        StringBuilder sb = new StringBuilder();
-        while((s = in.readLine()) != null) sb.append(s + "\n");
-        in.close();
-        return sb.toString();
-    }
-}
-```
-
