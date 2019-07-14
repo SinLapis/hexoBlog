@@ -91,9 +91,3 @@ class OSExecute {
 }
 ```
 
-## 新I/O
-
-- `java.nio.*`包中引入了新的Java I/O类库，其目的在于提高速度。而速度的提高来自于所使用的结构更接近于操作系统执行I/O的方式：通道和缓冲器。在交互过程中只需要和缓冲器交互，把缓冲器派送到通道。通道要么从缓冲器获得数据，要么向缓冲器发送数据。
-- 唯一直接与通道交互的缓冲器是`ByteBuffer`，可以存储未加工字节的缓冲器。
-- 引入NIO后，`FileInputStream`、`OutputStream`、`RandomAccessFile`被修改，可以产生`FileChannel`，用于操纵字节流。`java.nio.channels.Channels`类提供了可以在通道中产生`Reader`和`Writer`等字符模式类的方法。
-- 
