@@ -109,3 +109,115 @@ class Alien implements Serializable {
 
 ### 序列化控制
 
+- 如果希望对序列化过程进行控制，可以通过实现`Externalizable`接口代替`Serializable`。
+
+```java
+public class Test {
+    public static void main(String[] args) throws Exception {
+        System.out.println("Constructing objects...");
+        Blip1 b1 = new Blip1();
+        Blip2 b2 = new Blip2();
+        ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("blips.out"));
+        System.out.println("Saving objects...");
+        o.writeObject(b1);
+        o.writeObject(b2);
+        o.close();
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("blips.out"));
+        System.out.println("Recovering b1...");
+        b1 = (Blip1) in.readObject();
+        System.out.println("Recovering b2...");
+        b2 = (Blip2) in.readObject();
+        in.close();;
+    }
+}
+class Blip1 implements Externalizable {
+    public Blip1() {
+        System.out.println("Blip1 Constructor");
+    }
+    public void writeExternal(ObjectOutput out) throws IOException {
+        System.out.println("Blip1#writeExternal");
+    }
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        System.out.println("Blip1#reeadExternal");
+    }
+}
+class Blip2 implements Externalizable {
+    Blip2() {
+        System.out.println("Blip2  Constructor");
+    }
+    public void writeExternal(ObjectOutput out) throws IOException {
+        System.out.println("Blip2#writeExternal");
+    }
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        System.out.println("Blip2#reeadExternal");
+    }
+}
+/* Output:
+Constructing objects...
+Blip1 Constructor
+Blip2  Constructor
+Saving objects...
+Blip1#writeExternal
+Blip2#writeExternal
+Recovering b1...
+Blip1 Constructor
+Blip1#reeadExternal
+Recovering b2...
+Exception in thread "main" java.io.InvalidClassException: Blip2; no valid constructor
+*/
+```
+
+- `Externalizable`和`Serializable`不同，后者完全以对象存储的二进制位来构造，而不需要构造器，前者则会调用类所有默认的构造器（包括字段定义的初始化），然后调用`readExternal()`。
+
+```java
+public class Blip3 implements Externalizable {
+    private int i;
+    private String s;
+    public Blip3() {
+        System.out.println("Blip3 Constructor");
+    }
+    public Blip3(String x, int a) {
+        s = x;
+        i = a;
+    }
+    public String toString() {
+        return s + i;
+    }
+    public void writeExternal(ObjectOutput out) throws IOException {
+        System.out.println("Blip3#writeExternal");
+        // 可以控制序列化成员
+        out.writeObject(s);
+        out.writeInt(i);
+    }
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        // 按照writeExternal中写入顺序读出
+        s = (String) in.readObject();
+        i = in.readInt();
+    }
+    public static void main(String[] args) throws Exception {
+        System.out.println("Constructing objects...");
+        Blip3 b3 = new Blip3();
+        System.out.println(b3);
+        ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("b3.out"));
+        System.out.println("Saving object...");
+        o.writeObject(b3);
+        o.close();
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("b3.out"));
+        System.out.println("Recovering object...");
+        b3 = (Blips3) in.readObject();
+        System.out.println(b3);
+    }
+}
+```
+
+- 在上面代码中，如果在`writeExternal()`和`readExternal()`不保存和恢复成员变量，那么反序列化对象后，其成员变量值均为初始值（`i`为`0`，`s`为`null`）。
+- 如果不希望对象中某个变量被序列化，除了实现`Externalizable`接口以外，可以使用`Serializable`配合关键字`transient`，该关键字修饰的成员变量在序列化时会被忽略。例如：
+
+```java
+private transient String password;
+```
+
+无论在使用中对`password`赋任何值，在序列化和反序列化后，其值一定为`null`。
+
+- 尽管`Serializable`中没有定义方法，但是如果在实现该接口的类中添加`writeObject(ObjectOutputStream out)`和`readObject(ObjectInputStream in)`，那么对该类的对象进行序列化和反序列化时就会调用这两个方法，无论其权限如何（即使是`private`也会被调用）。此处使用的是反射搜索方法，而不是检查接口。
+
