@@ -48,7 +48,7 @@ public class GZIPcompress {
 ### 用Zip进行多文件压缩、解压
 
 ```java
-public class ZipCompress {
+public class Main {
     public static void main(String[] args) throws IOException {
         // 压缩
         FileOutputStream f = new FileOutputStream("test.zip");
@@ -65,10 +65,38 @@ public class ZipCompress {
             in.close();
             out.flush();
         }
+        out.close();
+        // 校验和
+        System.out.println("Checksum: " + csum.getChecksum().getValue());
+        // 解压
+        FileInputStream fi = new FileInputStream("test.zip");
+        CheckedInputStream csumi = new CheckedInputStream(fi, new Adler32());
+        ZipInputStream in2 = new ZipInputStream(csumi);
+        BufferedInputStream bis = new BufferedInputStream(in2);
+        ZipEntry ze;
+        while ((ze = in2.getNextEntry()) != null) {
+            System.out.println("Reading file: " + ze);
+            int x;
+            while ((x = bis.read()) != -1)
+                System.out.write(x);
+        }
+        if (args.length == 1)
+            System.out.println("Checksum: " + csumi.getChecksum().getValue());
+        bis.close();
+        // 另一种解压方式
+        ZipFile zf = new ZipFile("test.zip");
+        Enumeration e = zf.entries();
+        while (e.hasMoreElements()) {
+            ZipEntry ze2 = (ZipEntry) e.nextElement();
+            System.out.println("File: " + ze2);
+            // ...
+        }
     }
 }
 ```
 
-
+- 对于每一个要加入压缩档案的文件，都必须调用`putNextEntry()`，并将其传递给一个`ZipEntry`对象。`ZipEntry`对象包含了一个功能很广泛的接口，可以获取和设置Zip文件内特定想上所有可利用的数据，例如名字、压缩和未压缩的文件大小、日期、校验和等等。
+- 为了能够解压文件，`ZipInputStream`提供了一个`getNextEntry()`方法返回下一个`ZipEntry`（如果存在）。
+- 为了读取校验和，必须拥有相关联的`Checksum`对象的访问权限。
 
 
