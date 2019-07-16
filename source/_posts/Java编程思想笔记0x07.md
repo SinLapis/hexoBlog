@@ -55,7 +55,37 @@ public class Test {
 
 但是这一限制可以使用通配符解除，例如`List<? extends Fruit> flist = new ArrayList<Apple>;`，这不意味着`flist`可以持有任意`Fruit`及其子类的对象，仍然需要指明其持有类型，并向上转型。
 
-此时问题又出现了，向上转型后将无法传入任何类型对象给`flist`，因为编译器不知道`<? extends Fruit>`指向哪个类型，例如它可以指向`Orange`，那么向其中放入`Apple`、`Fruit`、`Object`对象都是非法的。不过此时从`flist`中取出`Apple`对象是允许的（前提是容器中有对象）。
+此时问题又出现了，向上转型后将无法传入任何类型对象给`flist`，因为编译器不知道`<? extends Fruit>`指向哪个类型（此时编译器会将其标记为某种未知类型），例如它可以指向`Orange`，那么向其中放入`Apple`、`Fruit`、`Object`对象都是非法的。不过此时从`flist`中取出`Apple`对象是允许的（前提是容器中有对象）。
+
+```java
+class Gen<T> {
+    T t;
+
+    public Test(T t) {
+        // this.t = t;
+        setT(t);
+    }
+    T getT() {
+        return t;
+    }
+    void setT(T t) {
+        this.t = t;
+    }
+}
+class Fruit {}
+class Apple extends Fruit {}
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+        Gen<? extends Number> g = new Gen<>(new Apple());
+        g.setT(new Apple()); // error
+    }
+}
+// Cannot infer type arguments for Test1<>
+// The method setT(capture#2-of ? extends Number) in the type Test1<capture#2-of ? extends Number> is not applicable for the arguments (Apple)
+```
+
+*在上面代码中，在构造方法中却是正确的。个人推测，`new Gen<>(new Apple())`这部分实际上泛型是`Apple`，并且也不能是包含通配符的泛型，因此构造方法顺利通过编译，但是变量`g`的泛型是包含通配符的，即其泛型是不确定的类型，因此后续调用`setT()`方法出现问题。*
 
 ### 逆变
 

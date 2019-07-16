@@ -384,37 +384,28 @@ class Line extends Shape {
     }
 }
 
-class Test<T> {
-    T t;
-
-    public Test(T t) {
-        this.t = t;
-    }
-    T getT() {
-        return t;
-    }
-    void setT(T t) {
-        this.t = t;
-    }
-}
-
-class Apple extends Fruit {
-}
-
-class Fruit {
-}
-
-public class Main {
-    public static void create(List<?> l, Test<?> t) {
-//        l.add(t);
-    }
+public class Test {
     public static void main(String[] args) throws Exception {
-        // 序列化部分
-        List<Apple> lo = new ArrayList<>();
-        List<? extends Fruit> l1 = new ArrayList<Apple>();
-//        l1.add(new Apple());
-        Test<? extends Fruit> t = new Test<>(new Apple());
-//        t.setT(new Apple());
+        List<Class<? extends Shape>> shapeTypes = new ArrayList<>();
+        shapeTypes.add(Circle.class);
+        shapeTypes.add(Square.class);
+        shapeTypes.add(Line.class);
+        List<Shape> shapes = new ArrayList<>();
+        for (int i = 0; i < 10; i++)
+            shapes.add(Shape.randomFactory());
+        for (int i = 0; i < 10; i++)
+            ((Shape)shapes.get(i)).setColor(Shape.GREEN);
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("cad.out"));
+        out.writeObject(shapeTypes);
+        Line.serializeStaticState(out);
+        out.writeObject(shapes);
+        System.out.println(shapes);
+        // 恢复
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("cad.out"));
+        List<Class<? extends Shape>> shapeTypes2 = (List<Class<? extends Shape>>)in.readObject();
+        Line.deserializeStaticState(in);
+        List<Shape> shapes2 = (List<Shape>) in.readObject();
+        System.out.println(shapes2);
     }
 }
 ```
