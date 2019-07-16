@@ -221,3 +221,203 @@ private transient String password;
 
 - 尽管`Serializable`中没有定义方法，但是如果在实现该接口的类中添加`writeObject(ObjectOutputStream out)`和`readObject(ObjectInputStream in)`，那么对该类的对象进行序列化和反序列化时就会调用这两个方法，无论其权限如何（即使是`private`也会被调用）。此处使用的是反射搜索方法，而不是检查接口。
 
+### 使用持久性
+
+```java
+class House implements Serializable {}
+class Animal implements Serializable {
+    private String name;
+    private House preferredHouse;
+    Animal(String nm, House h) {
+        name = nm;
+        preferredHouse = h;
+    }
+    public String toString() {
+        return name + "[" + super.toString() + "], " + preferredHouse + "\n";
+    }
+}
+public class Main {
+    public static void main(String[] args) throws Exception {
+        House house = new House();
+        List<Animal> animals = new ArrayList<>();
+        animals.add(new Animal("dog", house));
+        animals.add(new Animal("hamster", house));
+        animals.add(new Animal("cat", house));
+        System.out.println(animals);
+        ByteArrayOutputStream buf1 = new ByteArrayOutputStream();
+        ObjectOutputStream o1 = new ObjectOutputStream(buf1);
+        o1.writeObject(animals);
+        // 写第2次
+        o1.writeObject(animals);
+        ByteArrayOutputStream buf2 = new ByteArrayOutputStream();
+        ObjectOutputStream o2 = new ObjectOutputStream(buf2);
+        o2.writeObject(animals);
+        ObjectInputStream in1 = new ObjectInputStream(new ByteArrayInputStream(buf1.toByteArray()));
+        ObjectInputStream in2 = new ObjectInputStream(new ByteArrayInputStream(buf2.toByteArray()));
+        List a1 = (List)in1.readObject();
+        List a2 = (List)in1.readObject();
+        List a3 = (List)in2.readObject();
+        System.out.println(a1);
+        System.out.println(a2);
+        System.out.println(a3);
+    }
+}
+/* Output:
+[dog[Animal@5b464ce8], House@2d3fcdbd
+, hamster[Animal@617c74e5], House@2d3fcdbd
+, cat[Animal@6537cf78], House@2d3fcdbd
+]
+[dog[Animal@4501b7af], House@523884b2
+, hamster[Animal@5b275dab], House@523884b2
+, cat[Animal@61832929], House@523884b2
+]
+[dog[Animal@4501b7af], House@523884b2
+, hamster[Animal@5b275dab], House@523884b2
+, cat[Animal@61832929], House@523884b2
+]
+[dog[Animal@29774679], House@3ffc5af1
+, hamster[Animal@5e5792a0], House@3ffc5af1
+, cat[Animal@26653222], House@3ffc5af1
+]
+*/
+```
+
+- 可以发现，首先对象序列化实现了对象的深拷贝。此外，在`o1`中写入两次的对象地址是相同的，这意味着在同一个对象序列化流中，系统能够识别出相同的引用。
+
+```java
+abstract class Shape implements Serializable {
+    public static final int RED = 1, BLUE = 2, GREEN = 3;
+    private int xPos, yPos, dimension;
+    private static Random rand = new Random(47);
+    private static int counter = 0;
+
+    public abstract void setColor(int newColor);
+
+    public abstract int getColor();
+
+    public Shape(int x, int y, int dim) {
+        xPos = x;
+        yPos = y;
+        dimension = dim;
+    }
+
+    public String toString() {
+        return getClass() + "color[" + getColor() + "] xPos[" + xPos + "] yPos" + yPos + "] dim[" + dimension + "]\n";
+    }
+
+    public static Shape randomFactory() {
+        int x = rand.nextInt(100);
+        int y = rand.nextInt(100);
+        int dim = rand.nextInt(100);
+        switch (counter++ % 3) {
+            default:
+            case 0:
+                return new Circle(x, y, dim);
+            case 1:
+                return new Square(x, y, dim);
+            case 2:
+                return new Line(x, y, dim);
+        }
+    }
+}
+
+class Circle extends Shape {
+    private static int color = RED;
+
+    @Override
+    public void setColor(int newColor) {
+        color = newColor;
+    }
+
+    @Override
+    public int getColor() {
+        return color;
+    }
+
+    public Circle(int x, int y, int dim) {
+        super(x, y, dim);
+    }
+}
+
+class Square extends Shape {
+    private static int color;
+
+    public Square(int x, int y, int dim) {
+        super(x, y, dim);
+        color = RED;
+    }
+
+    @Override
+    public void setColor(int newColor) {
+        color = newColor;
+    }
+
+    @Override
+    public int getColor() {
+        return color;
+    }
+}
+
+class Line extends Shape {
+    private static int color = RED;
+
+    public Line(int x, int y, int dim) {
+        super(x, y, dim);
+    }
+
+    public static void serializeStaticState(ObjectOutputStream os) throws IOException {
+        os.writeObject(color);
+    }
+
+    public static void deserializeStaticState(ObjectInputStream os) throws IOException {
+        color = os.readInt();
+    }
+
+    @Override
+    public void setColor(int newColor) {
+        color = newColor;
+    }
+
+    @Override
+    public int getColor() {
+        return color;
+    }
+}
+
+class Test<T> {
+    T t;
+
+    public Test(T t) {
+        this.t = t;
+    }
+    T getT() {
+        return t;
+    }
+    void setT(T t) {
+        this.t = t;
+    }
+}
+
+class Apple extends Fruit {
+}
+
+class Fruit {
+}
+
+public class Main {
+    public static void create(List<?> l, Test<?> t) {
+//        l.add(t);
+    }
+    public static void main(String[] args) throws Exception {
+        // 序列化部分
+        List<Apple> lo = new ArrayList<>();
+        List<? extends Fruit> l1 = new ArrayList<Apple>();
+//        l1.add(new Apple());
+        Test<? extends Fruit> t = new Test<>(new Apple());
+//        t.setT(new Apple());
+    }
+}
+```
+
+
+
