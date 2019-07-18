@@ -400,7 +400,15 @@ public class Test {
         Line.serializeStaticState(out);
         out.writeObject(shapes);
         System.out.println(shapes);
-        // 恢复
+    }
+}
+```
+
+```java
+// 类定义略
+public class Test {
+    public static void main(String[] args) throws Exception {
+		// 恢复
         ObjectInputStream in = new ObjectInputStream(new FileInputStream("cad.out"));
         List<Class<? extends Shape>> shapeTypes2 = (List<Class<? extends Shape>>)in.readObject();
         Line.deserializeStaticState(in);
@@ -410,5 +418,9 @@ public class Test {
 }
 ```
 
+- 注意，在上面代码中，除了`Line`对象以外的其它对象的`static`字段`color`在反序列化后没有设置正确的值，这也是`Line`类中两个静态方法`serializeStaticState()`和`deserializeStaticState()`的作用，手动实现`static`字段的序列化。
 
+## Perferences
+
+- Perferences提供存储小的、受限的数据集合（基本类型和字符串），存储位置和方法与操作系统相关（Windows存储在注册表中）。
 
