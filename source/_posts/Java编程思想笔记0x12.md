@@ -387,3 +387,31 @@ enum RoShamBo3 {
 }
 ```
 
+### 使用EnumMap分发
+
+```java
+enum Outcome { WIN, DRAW, LOSE}
+enum RoShamBo5 {
+    PAPER, SCISSORS, ROCK;
+    static EnumMap<RoShamBo5, EnumMap<RoShamBo5, Outcome>> table = new EnumMap<>(RoShamBo5.class);
+    static {
+        for (RoShamBo5 it: RoShamBo5.values()) {
+            table.put(it, new EnumMap<>(RoShamBo5.class));
+        }
+        initRow(PAPER, Outcome.DRAW, Outcome.LOSE, Outcome.WIN);
+        initRow(SCISSORS, Outcome.WIN, Outcome.DRAW, Outcome.LOSE);
+        initRow(ROCK, Outcome.LOSE, Outcome.WIN, Outcome.DRAW);
+    }
+    static void initRow(RoShamBo5 it, Outcome vPAPER, Outcome vSCISSORS, Outcome vROCK) {
+        EnumMap<RoShamBo5, Outcome> row = RoShamBo5.table.get(it);
+        row.put(RoShamBo5.PAPER, vPAPER);
+        row.put(RoShamBo5.SCISSORS, vSCISSORS);
+        row.put(RoShamBo5.ROCK, vROCK);
+    }
+    public Outcome compete(RoShamBo5 it) {
+        return table.get(this).get(it);
+    }
+}
+```
+
+- 使用`EnumMap`实现类似于表格的方法，从而达到了分发的目的。当然也可以使用二维数组来实现。
