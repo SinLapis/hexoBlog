@@ -7,7 +7,7 @@ tags:
   - 笔记
 ---
 
-# 并发
+# 并发（一）
 
 ## 基本的线程机制
 
@@ -245,3 +245,67 @@ public class Main {
 ```
 
 - 当最后一个非后台线程终止时，JVM就会立即关闭所有后台进程（例如上面代码，尽管执行到[1]处会被强制停止，但不会执行`finally`子句）。这不是关闭后台进程优雅的方式，相应的，非后台的`Executor`控制的所有任务可以同时被关闭，这是一种更好的解决方式。
+
+### 加入一个线程
+
+- 一个线程可以在其他线程之上调用`join()`方法，此时调用`join()`的线程将被挂起，直到目标线程结束才回复（即`t.isAlive`为假）。也可以在调用`join()`时带上一个超时参数，如果发生超时目标线程还没有结束，`join()`方法也会返回。
+
+### 捕获线程异常
+
+```java
+class ThrowException implements Runnable {
+    @Override
+    public void run() {
+        throw new RuntimeException();
+    }
+}
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        try {
+            exec.execute(new ThrowException());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+- 上面代码中的`try`语句无法捕获线程中的异常。
+
+```java
+class ThrowException implements Runnable {
+    @Override
+    public void run() {
+        throw new RuntimeException();
+    }
+}
+
+class CatchException implements Thread.UncaughtExceptionHandler {
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        System.out.println("caught: " + e);
+    }
+}
+
+class ExceptionThreadFactory implements ThreadFactory {
+    @Override
+    public Thread newThread(Runnable r) {
+        Thread t = new Thread(r);
+        t.setUncaughtExceptionHandler(new CatchException());
+        return t;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService exec = Executors.newCachedThreadPool(new ExceptionThreadFactory());
+        exec.execute(new ThrowException());
+    }
+}
+/* Output:
+caught: java.lang.RuntimeException
+*/
+```
+
+- `Thread.UncaughtException`接口可以为每个`Thread`对象都附着一个异常处理器。其中`uncaughtException()`方法会在线程因未捕获异常而退出前被调用。上面代码中创建了一个`ThreadFactory`子类来为线程添加异常处理器。
