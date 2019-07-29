@@ -257,6 +257,9 @@ busuanzi:
 #links_title: Links
 #links:
 #Name: url
+links_title: Links
+links:
+  chace: http://chace.in/
 
 # Follow Me Button
 # follow:
