@@ -191,3 +191,47 @@ class Apple {
 
 ## 复合Lambda表达式
 
+- Java 8的一些函数式借口都有为方便而设计的方法，可以把多个简单的Lambda复合成复杂的表达式（例如使用`or`连接两个Lambda）。这些方法的实现使用了接口的默认方法。
+
+### 比较器复合
+
+以一个`Comparator`为例：
+
+```java
+Comparator<Apple> c = Comparator.comparing(Apple::getWeight);
+```
+
+#### 逆序
+
+- 如果希望将结果逆序输出，可以使用默认方法`reversed()`将比较器结果逆序：
+
+```java
+inventory.sort(comparing(Apple::getWeight).reversed());
+```
+
+#### 比较器链
+
+- 如果使用比较器得到两个应该处于相同位置的对象时，可以使用`thenComparing()`来进一步比较：
+
+```java
+inventory.sort(comparing(Apple::getWeight))
+         .reversed()
+         .thenComparing(Apple::getCountry));
+```
+
+### 谓词复合
+
+- 谓词借口包括三个方法：`negate`、`and`和`or`，其优先级是从左往右。
+
+```java
+// 从现有的Predicate创建结果的非
+Predicate<Apple> notRedApple = redApple.negate();
+// 使用and和or创建复杂的Predicate对象
+Predicate<Apple> p = redApple.and(a -> a.getWeight() > 150)
+                             .or(a -> "green".equals(a.getColor()));
+```
+
+### 函数复合
+
+- 可以使用`Function`接口将Lambda表达式复合起来。其中提供`andThen()`和`compose()`两个方法，它们都会返回一个`Function`实例。`andThen()`会先对输入应用调用该方法的`Function`，后对输入应用该方法的`Function`参数；`compose()`则是先对输入应用该方法的`Function`参数，后对输入应用调用该方法的`Function`
+
