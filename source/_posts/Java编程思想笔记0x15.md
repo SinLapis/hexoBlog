@@ -108,3 +108,10 @@ class Even {
   2. 调用`wait()`使线程挂起，直到线程得到了`notify()`或者`notifyAll()`消息（或者在Java中等价的`signal()`或`signalAll()`消息），线程才会进入就绪状态。
   3. 任务在等待某个输入/输出完成。
   4. 任务试图在某个对象上调用其同步控制方法，但对象锁不可用，因为另一个任务已经获取了这个锁。
+
+### 中断
+
+- `Thread`类包含`interrupt()`方法，可以终止被阻塞任务，这个方法将设置线程的中断状态。如果一个线程已经被阻塞，或者试图执行一个阻塞操作，那么设置这个线程的中断状态将跑出`InterruptedException`。当抛出该异常或者该任务调用`Thread#interrupted()`时，中断状态将被复位。
+- 如果在`Executor`上调用`shutdownNow()`，那么它将发送一个`interrrupt()`调用给它启动的所有线程。如果希望只中断某个任务，那么需要通过调用`submit()`而不是`executor()`启动任务，这样可以持有线程的上下文。`submit()`将放回一个泛型`Future<?>`，可以在其上调用`cancel()`，由此中断某个任务。如果将`true`传递给`cancel()`，那么它就会有在该线程上调用`interrupt()`以停止这个线程的权限。
+- `interrupt()`不能中断正在试图获取`synchronized`锁或者试图执行I/O操作的线程，*因为操作系统并未提供该功能*。
+- 可以通过调用`Thread.interrupted()`来检查中断状态，不仅仅可以得知`interrupt()`是否被调用过，还可以清除中断状态。
