@@ -46,3 +46,106 @@ synchronized (sharedMonitor) {
 
 - 此时如果T1先执行，由于条件改变，T2就不会进入`wait()`。此外，这种方式还能防止被错误唤醒，如果被错误唤醒但还满足等待条件时会继续进入`wait()`。
 - `notifyAll()`因某个特定锁而被调用时，只有等待这个锁的任务才会被唤醒。
+
+### 生产者和消费者
+
+```java
+class Meal {
+    private final int orderNum;
+
+    public Meal(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal " + orderNum;
+    }
+}
+
+class WaitPerson implements Runnable {
+    private Restaurant restaurant;
+
+    public WaitPerson(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!Thread.interrupted()) {
+                synchronized (this) {
+                    while (restaurant.meal == null)
+                        wait(); 
+                }
+                System.out.println("Waitperson got " + restaurant.meal);
+                synchronized (restaurant.chef) {
+                    restaurant.meal = null;
+                    restaurant.chef.notifyAll();
+                }
+            }
+        } catch (InterruptedException e) {
+            System.out.println("WaitPerson interrupted");
+        }
+    }
+}
+
+class Chef implements Runnable {
+    private Restaurant restaurant;
+    private int count = 0;
+
+    public Chef(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!Thread.interrupted()) {
+                synchronized (this) {
+                    while (restaurant.meal != null)
+                        wait();
+                }
+                if (++count == 10) {
+                    System.out.println("Out of food, closing");
+                    restaurant.exec.shutdownNow();
+                }
+                System.out.println("Order up!");
+                synchronized (restaurant.waitPerson) {
+                    restaurant.meal = new Meal(count);
+                    restaurant.waitPerson.notifyAll();
+                }
+                TimeUnit.MILLISECONDS.sleep(100);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Chef interrupted");
+        }
+    }
+}
+
+class Restaurant {
+    public Meal meal;
+    ExecutorService exec = Executors.newCachedThreadPool();
+    WaitPerson waitPerson = new WaitPerson(this);
+    Chef chef = new Chef(this);
+    public Restaurant() {
+        exec.execute(chef);
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        exec.execute(waitPerson);
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) throws InterruptedException {
+        new Restaurant();
+    }
+}
+```
+
+- *上面代码使用`wait()`和`notifyAll()`的主要原因是减少资源竞争，从而降低CPU资源使用。实际上单生产者单消费者在不考虑资源使用的情况下，是没有必要加锁的。*
+- 上面代码中只有一个任务，理论上可以调用`notify()`而不是`notifyAll()`。但是，在更复杂的情况下，可能会有多个任务在某个特定的对象锁上等待，因此无法知道哪个任务应该被唤醒。因此，调用`notifyAll()`要更安全一些，这样可以唤醒等待这个锁的所有任务，而每个任务都必须决定这个通知是否与自己相关。（*因为获取对象锁之后，线程的行为并不确定，因此应当使用`notifyAll()`来唤醒所有线程，每个线程来检查自己是否应当被唤醒。*）
