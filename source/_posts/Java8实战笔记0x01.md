@@ -108,5 +108,29 @@ int sum = numbers.stream().reduce(0, (a, b) -> a + b);
 
 ## 构建流
 
+### 由值创建流
 
+- 使用`Stream.of`可以通过显式值创建一个流，可以接受任意数量的参数。而`Stream.empty`可以得到一个空流。
 
+```java
+Stream<String> stream = Stream.of("Java 8", "Lambdas", "In", "Action");
+Stream<String> emptyStream = Stream.empty();
+```
+
+### 由数组创建流
+
+- 静态方法`Arrays.stream`可以从数组创建一个流，接受一个数组作为参数。
+
+### 由文件生成流
+
+- `java.nio.file.Files`中的很多静态方法都会返回一个流，例如`Files.lines`，它会返回一个由指定文件中的各行构成的字符串流。
+
+### 由函数生成流——创建无限流
+
+#### 迭代
+
+- `iterate`方法接受一个初始值，以及一个一次应用在每个产生的新值上的Lambda。`iterate`操作基本上是顺序的，因为结果取决于前一次应用。该操作将生成一个无限流，没有结尾，因为值是按需计算的，可以永远计算下去。因此流和集合的一个关键的区别在于流是无界的。
+
+#### 生成
+
+- `generate`方法也可以生成无限流，它接受一个`Supplier<T>`类型的Lambda提供新的值。
