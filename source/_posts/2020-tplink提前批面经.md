@@ -1,12 +1,12 @@
 ---
-title: 2020-tplink面经
+title: 2020-tplink提前批面经
 date: 2019-07-30 16:27:55
 categories: 面经
 tags:
   - 面经
 ---
 
-# 2020 tplink面经
+# 2020 tplink提前批面经
 
 - 应聘岗位：IT软件工程师
 - 状态：一面过，二面没去
