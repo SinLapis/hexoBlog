@@ -223,6 +223,3 @@ List<Dish> dishes = menuStream.collect(
     List::addAll
 );
 ```
-
-
-
