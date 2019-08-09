@@ -6,7 +6,7 @@ theme_color:
   enable: true
   main: "#7189bf"
   paginator: "#7189bf"
-  button_hover: "#ffc785"
+  button_hover: "#df7599"
   text_selection: "#7189bf"
   link_color: "#858585"
   hr_color: "#7189bf"
@@ -16,6 +16,7 @@ theme_color:
 # Main menu navigation
 menu:
   Home: /
+  ACG: /ACGBlog
   Archives: /archives
   Tags: /tags
   Categories: /categories
