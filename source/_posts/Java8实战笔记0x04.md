@@ -286,3 +286,43 @@ Function<String, String> pipeline = headerProcessing.andThen(spellCheckerProcess
 String result = pipeline.apply("Aren't labdas really sexy?!!");
 ```
 
+### 工厂模式
+
+- 使用工厂模式，无需向客户端暴露实例化的逻辑就能完成对象的创建。
+
+```java
+public class ProdectFactory {
+    public static Product createProduct(String name) {
+        switch(name) {
+            case "loan": return new Loan();
+            case "stock": return new  Stock();
+            case "bond": return new Bond();
+            default: throw new RuntimeException("No such product " + name);
+        }
+    }
+}
+// ...
+// 使传统的工厂模式
+Product p = ProductFactory.createProduct("loan");
+
+// 使用Lambda表达式优化工厂模式
+final static Map<String, Supplier<Product>> map = new HashMap<>();
+static {
+    map.put("load", Loan::new);
+    map.put("stock", Stock::new);
+    map.put("bond", Bond::new);
+}
+public static Product createProduct(String name) {
+    Supplier<Product> p = map.get(name);
+    if (p != null) return p.get();
+    throw new IllegalArgumentExcetption("No such product " + name);
+}
+```
+
+## 测试
+
+- 没有必要对Lambda表达式进行测试，更应该关注外围方法的的行为。
+
+## 调试
+
+- 方法引用的错误可以体现在栈跟踪中，而Lambda表达式由于没有名字，栈跟踪显示的错误会比较难以理解。此时应该使用日志调试，即在流水线中插入`peek`方法查看中间值。
