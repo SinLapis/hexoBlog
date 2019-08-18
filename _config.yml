@@ -14,7 +14,7 @@ avatar: source/images/3774d809.jpg
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://sinlapis.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -71,7 +71,7 @@ theme: melody
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: 
+  repo:
     coding: ssh://git@git.coding.net/SinLapis/SinLapis.git,master
     github: ssh://git@github.com/SinLapis/sinlapis.github.io.git,master
 # Plugins
