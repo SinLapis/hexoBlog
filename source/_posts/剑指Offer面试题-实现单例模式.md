@@ -5,6 +5,8 @@ categories: 设计模式
 tags:
   - Java
   - 设计模式
+  - 单例模式
+  - 剑指Offer
 ---
 
 # 实现单例模式

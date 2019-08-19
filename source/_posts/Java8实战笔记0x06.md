@@ -248,7 +248,7 @@ public static Optional<Integer> stringToInt(String s) {
     }
 }
 
-// Java 9中添加了Stream.ofNullable，如果对象为null，
+// Java 9中添加了Stream.ofNullable，如果对象为null，则返回OptionalInt
 public OptionalInt stringToInt(String s) {
     return Stream.ofNullable(s)
         .filter(str -> str.matches("\\d+"))
