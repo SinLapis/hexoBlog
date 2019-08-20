@@ -57,3 +57,46 @@ class Q3Test {
 
 在一个长度为`n + 1`的数组里的所有数字都在`1`到`n`的范围内。 数组中至少有一个数字是重复的，。请找出数组中任意一个重复的数字，但不修改数组。 例如，如果输入长度为`8`的数组`{2, 3, 5, 4, 3, 2, 6, 7}`，那么对应的输出是重复的数字`2`或`3`。
 
+```java
+public class Q3_2 {
+    public static int solution(int[] arr) {
+        if (arr == null) return  0;
+        int left = 1;
+        int right = arr.length - 1;
+        int big = 0, eq = 0, small = 0;
+        int mid;
+        while (left < right) {
+            mid = left + (right - left >> 1);
+            for (int value : arr) {
+                if (value >= left && value <= right) {
+                    if (value == mid) eq++;
+                    else if (value < mid) small++;
+                    else big++;
+                }
+            }
+            if (eq > 1) return mid;
+            if (small > big) right = mid;
+            else left = mid + 1;
+        }
+        return 0;
+    }
+}
+// Test
+class Q3_2Test {
+
+    @Test
+    void solution() {
+        int[] arr = {2, 3, 5, 4, 3, 2, 6, 7};
+        assertThat(Q3_2.solution(arr), anyOf(equalTo(2), equalTo(3)));
+        assertArrayEquals(new int[]{2, 3, 5, 4, 3, 2, 6, 7}, arr);
+        // 无重复
+        arr = new int[]{0, 1, 2};
+        assertEquals(Q3_2.solution(arr), 0);
+        // null
+        assertEquals(Q3_2.solution(null), 0);
+    }
+}
+```
+
+- 思路：针对值范围进行二分查找。例如`1-n`，中间值为`mid`，先遍历数组，分别找出小于`mid`的个数`small`、等于`mid`的个数`eq`、大于`mid`的个数`big`。如果`eq`大于`1`，那说明为`mid`的元素有两个，即找到结果。否则，看`small`和`big`哪一个更大，则重复值在哪边。
+- 时间复杂度`O(nlogn)`，空间复杂度`O(1)`
