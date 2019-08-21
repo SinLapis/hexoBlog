@@ -5,9 +5,10 @@ categories: Java
 tags:
   - Java
   - 笔记
+  - 并发
 ---
 
-# CompletableFuture：组合异步编程
+# CompletableFuture：组合异步编程（一）
 
 ## Future接口
 
