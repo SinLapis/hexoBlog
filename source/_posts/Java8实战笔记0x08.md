@@ -163,3 +163,23 @@ Done in 2007 msecs
 */
 ```
 
+- `thenApply`：支持可以采用同步操作的过程，不会带来太多延迟。在上面代码中，`thenApply`方法将`Stream`中的每个`CompletableFuture<String>`对象转换为对应的`CompletableFuture<Quote>`对象。
+- `thenCompose`：支持异步执行过程，允许对两个异步操作进行流水线，第一个操作完成时，将其结果作为参数传递给第二个操作。
+
+### 将两个CompletableFuture对象整合起来，无论它们是否存在依赖
+
+- `thenCombine`：可以将两个完全不相干的`CompletableFuture`对象的结果整合起来。它接受名为`BiFunction`的第二参数，这个参数定义了当两个`CompletableFuture`对象完成计算后，结果如何合并。
+
+```java
+Future<Double> futurePriceInUSD = CompletableFuture.supplyAsync(
+    () -> shop.getPrice(product)
+).thenCombine(CompletableFuture.supplyAsync(
+    () -> exchangeService.getRate(Money.EUR, Money.USD)
+), (price, rate) -> price * rate);
+```
+
+## 相应CompletableFuture的completion事件
+
+- `thenAccept`：将`CompletableFuture`返回的结果作为参数，并定义如何处理该结果。一旦`CompletableFuture`计算得到结果，它就返回一个`CompletableFuture<Void>`。
+- `CompletableFuture.allOf`：是一个工厂方法，接收一个`CompletableFuture`构成的数组，数组中的所有`CompletableFuture`对象执行完成后，它返回一个`CompletableFuture<Void>`对象。
+- `CompletableFuture.anyOf`：是一个工厂方法，接收一个`CompletableFuture`构成的数组，返回第一个执行完毕的`CompletableFuture`对象的返回值构成的`CompletableFuture<Object>`。
