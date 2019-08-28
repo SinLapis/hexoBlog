@@ -25,6 +25,7 @@ jobs:
         echo "$ACTIONS_PRI" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
+        ssh-keyscan git.coding.net >> ~/.ssh/known_hosts
         git config --global user.name 'SinLapis'
         git config --global user.email 'stradust0001@gmail.com'
         npm i -g hexo-cli
