@@ -1,0 +1,36 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: env prepare
+      env:
+        ACTIONS_PRI: ${{secrets.ACTIONS_PRI}}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$ACTIONS_PRI" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        ssh-keyscan git.coding.net >> ~/.ssh/known_hosts
+        git config --global user.name 'SinLapis'
+        git config --global user.email 'stradust0001@gmail.com'
+        npm i -g hexo-cli
+        npm install hexo-renderer-jade hexo-renderer-stylus --save
+        npm i
+    - name: gen
+      run: |
+        hexo g -d
