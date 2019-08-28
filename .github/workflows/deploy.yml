@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -24,7 +24,6 @@ jobs:
         mkdir -p ~/.ssh/
         echo "$ACTIONS_PRI" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        cat ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name 'SinLapis'
         git config --global user.email 'stradust0001@gmail.com'
