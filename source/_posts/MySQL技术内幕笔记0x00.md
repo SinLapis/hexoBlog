@@ -33,3 +33,79 @@ tags:
   - 实体完整性保证表中有一个主键，可以通过定义Primary Key或Unique Key约束或者定义一个触发器来保证实体的完整性。
   - 域完整性保证数据每列的值满足特定的条件，可以选择合适的数据类型确保一个入局值满足特定条件，使用外键约束，编写触发器，或者考虑DEFAULT约束。
   - 参照完整性保证两张表之间的关系。可以使用外键以强制参照完整性，也可以使用触发器。
+- InnoDB存储引擎提供了以下几种约束：primary key、unique key、foreign key、default、not null
+
+### 约束的创建
+
+- 约束的创建有两种方式：
+  - 表建立时就进行约束定义
+  - 利用alter table命令来进行创建约束
+- 对于主键约束而言，其默认约束名为primary。对于unique key约束而言，默认约束名和列名一样，也可以人为指定名字。
+
+### 约束和索引的区别
+
+- 当用户创建了一个唯一索引就创建了一个唯一的约束。约束偏向于一个逻辑概念，用来保证数据完整性，而索引是一个数据结构，既有逻辑上的概念，在数据库中还代表着物理存储方式。
+
+### 对错误数据的约束
+
+- 在某些魔神设置下，MySQL数据库允许非法的或者不正确的数据插入或更新，又或者可以在数据库内部将其转化为一个合法的值。
+
+### 触发器约束
+
+- 触发器的作用是在执行insert、delete、update命令之前或之后自动调用SQL命令或存储过程。最多可以为一个表建立6个触发器，即分别为insert、update、delete的before和after各定义一个。当前MySQL数据库只支持for each row的 触发方式，即按每行记录进行触发。
+- 通过触发器，用户可以实现MySQL数据库本身并不支持的一些特性。
+
+```sql
+create table user_cash (
+    user_id int not null ,
+    cash int unsigned not null 
+);
+
+insert into `user_cash`(`user_id`, `cash`) value(1, 1000);
+# 非正常行为
+update `user_cash` set `cash` = `cash` - (-20) where `user_id` = 1;
+```
+
+```sql
+# 添加触发器和错误日志
+create table `user_cash_err_log` (
+    user_id int not null ,
+    old_cash int unsigned not null ,
+    new_cash int unsigned not null ,
+    user varchar(30),
+    time datetime
+);
+
+create trigger tgr_user_cash_update before update on `user_cash`
+    for each row
+    begin
+        if new.`cash` - old.`cash` > 0 then
+            insert into `user_cash_err_log`
+            select old.`user_id`, old.`cash`, new.`cash`, USER(), NOW();
+            set new.`cash` = old.`cash`;
+        end if;
+    end;
+```
+
+```sql
+# 再次尝试非正常行为
+update `user_cash` set `cash` = `cash` - (-20) where `user_id` = 1;
+select * from user_cash_err_log;
+# 1	1020	1040	root@localhost	2019-08-29 10:06:27
+select * from user_cash;
+# 1	1020
+```
+
+### 外键约束
+
+- 一般称被引用表为父表，引用的表称为子表。外键定义时的on delete和on update表示在对父表进行delete和update操作时，对子表所做的操作。
+- 可定义的子表操包括cascade、set null、no action、restrict。cascade（级联）表示当父级发生delete或update操作时，对相应的子表中的数据也进行delete或update操作。set null表示父表发生delete或update操作时，相应的子表中的数据被更新为null值，但是子表中相对应的列必须允许为null值。no action和restrict在MySQL中等价，都表示父表发生delete或update操作时抛出错误，不允许这类操作发生。
+
+## 视图
+
+- 在MySQL数据库中，视图是一个命名的虚表，它由一个SQL查询来定义，可以当作表使用。与持久表不同的是，视图中的入局没有实际的物理存储。
+
+### 视图的作用
+
+- 视图的主要用途之一是被用作一个抽象装置，特别是对于一些应用程序，程序本身不需要关心基表的结构，只需要按照视图的定义来取数据或更新数据，因此，视图同时在一定程度上起到一个安全层的作用。
+
