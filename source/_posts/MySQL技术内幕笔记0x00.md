@@ -8,7 +8,7 @@ tags:
   - 表
 ---
 
-# 表
+# 表（一）
 
 ## 索引组织表
 
@@ -100,12 +100,3 @@ select * from user_cash;
 
 - 一般称被引用表为父表，引用的表称为子表。外键定义时的on delete和on update表示在对父表进行delete和update操作时，对子表所做的操作。
 - 可定义的子表操包括cascade、set null、no action、restrict。cascade（级联）表示当父级发生delete或update操作时，对相应的子表中的数据也进行delete或update操作。set null表示父表发生delete或update操作时，相应的子表中的数据被更新为null值，但是子表中相对应的列必须允许为null值。no action和restrict在MySQL中等价，都表示父表发生delete或update操作时抛出错误，不允许这类操作发生。
-
-## 视图
-
-- 在MySQL数据库中，视图是一个命名的虚表，它由一个SQL查询来定义，可以当作表使用。与持久表不同的是，视图中的入局没有实际的物理存储。
-
-### 视图的作用
-
-- 视图的主要用途之一是被用作一个抽象装置，特别是对于一些应用程序，程序本身不需要关心基表的结构，只需要按照视图的定义来取数据或更新数据，因此，视图同时在一定程度上起到一个安全层的作用。
-
