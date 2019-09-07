@@ -98,3 +98,54 @@ where sale_price > (
 ;
 ```
 
+# 函数、谓词、case表达式
+
+## 谓词
+
+### like
+
+- `%`代表0字符及以上的任意字符串，`_`代表任意一个字符。
+
+```sql
+/* pg */
+select *
+from test.like_sample.like_test
+where strcol like 'abc%';
+
+select *
+from test.like_sample.like_test
+where strcol like 'abc__';
+```
+
+### between
+
+- 范围查询，包括两个边界。
+
+```sql
+select *
+from `shop`
+where sale_price between 100 and 1000;
+```
+
+### is null、is not null
+
+- 判断是否为`null`。
+
+### in
+
+- `or`的简便写法。
+
+```sql
+select `product_name`, `purchase_price`
+from `shop`
+where putchase_price in (320, 500, 5000);
+```
+
+### 使用子查询作为in的参数
+
+```sql
+select `product_name`, `sale_price
+```
+
+
+
