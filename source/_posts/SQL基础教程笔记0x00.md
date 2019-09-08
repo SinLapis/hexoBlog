@@ -4,7 +4,6 @@ date: 2019-09-07 10:05:05
 categories: SQL
 tags:
   - SQL
-  - 聚合查询
 ---
 
 # 查询基础
@@ -144,7 +143,48 @@ where putchase_price in (320, 500, 5000);
 ### 使用子查询作为in的参数
 
 ```sql
-select `product_name`, `sale_price
+select `product_name`, `sale_price`
+from `shop`
+where `product_id` in (
+    select `product_id`
+    from `all_shops`
+    where `shop_id` = '000c'
+);
+```
+
+### exists
+
+- 判断是否存在满足条件的某种记录，存在则返回真，不存在则返回假。
+
+```sql
+select `product_name`, `sale_price`
+from `product` as p
+where exists (
+    select *
+    from shop_product as sp
+    where sp.shop_id = '000c'
+    and sp.product_id = p.product_id
+);
+```
+
+## case表达式
+
+- 满足`when`子句就执行对应的`then`子句，否则到下一个`when`子句，直到没有`when`子句后执行`else`子句。
+
+```sql
+select sum(
+    case when `product_type` = 'A'
+    then `sale_price` else 0 end
+) as `sum_price_clothes`,
+sum(
+    case when `product_type` = 'b'
+    then `sale_price` else 0 end
+) as `sum_price_kitchen`,
+sum(
+    case when `product_type` = 'C'
+    then `sale_price` else 0 end
+) as `sum_price_office`
+from `product`;
 ```
 
 
