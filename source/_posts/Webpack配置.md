@@ -1,40 +1,37 @@
 ---
-title: React-0x00-环境配置
+title: Webpack配置
 date: 2019-10-22 09:34:40
-categories: React
+categories: Webpack
 tags:
   - 前端
-  - React
   - Webpack
 ---
 
-# React开发环境配置
+# Webpack配置
 
 Kotlin看不动了，摸鱼学学前端。
 
-## Webpack配置
-
 先安装node.js和npm，此处略。
 
-### 初始化
+## 初始化
 
 初始化package描述文件，在项目路径中生成`package.json`文件。
 
-```
+```shell
 npm init
 ```
 
 或者使用`npm init --yes`省去中间配置步骤。
 
-### 安装Webpack
+## 安装Webpack
 
-```
+```shell
 npm i webpack webpack-cli -D
 ```
 
 > --save-dev(-D)参数意思是把模块版本信息保存到devDependencies（开发环境依赖）中，即package.json的devDependencies字段中
 
-### 配置build启动脚本
+## 配置build启动脚本
 
 在`package.json`中，对`scripts`添加`build`字段：
 
@@ -51,13 +48,13 @@ npm i webpack webpack-cli -D
 
 此时可以测试能否build成功：
 
-```
+```shell
 npm run build
 ```
 
 项目目录中会出现一个`dist`文件夹，里面有一个`main.js`，即转换生成的js文件。
 
-### 使用webpack.config.js
+## 使用webpack.config.js
 
 可以使用`webpack.config.js`来自定义`build`的入口和出口。该文件可以使用`node.js`的模块。
 
@@ -142,11 +139,11 @@ module.exports = {
 
 `process.cwd()`为获得当前执行node命令时候的文件夹目录名。
 
-### 自动生成html
+## 自动生成html
 
 如果生成js使用了hash值作为文件名，那么对应的html也需要自动生成。安装插件`html-webpack-plugin`。
 
-```
+```shell
 npm i -D html-webpack-plugin
 ```
 
@@ -175,7 +172,7 @@ module.exports = {
 
 进行`npm run build`，在`dist`中生成了`index.html`，其中使用的js文件是打包的js文件。
 
-### html模版
+## html模版
 
 使用html模版则需要在项目目录中建立`public`文件夹，在其中建立`home.html`，如下：
 
@@ -246,11 +243,11 @@ module.exports = {
 </html>
 ```
 
-### css
+## css
 
 安装`style-loader`和`css-loader`。`style-loader`用于插入css到js里。`css-loader`用于处理css。
 
-```
+```shell
 npm i -D style-loader css-loader
 ```
 
@@ -299,7 +296,7 @@ console.log("home");
 
 如果希望提取css到单独文件，则需要安装`mini-css-extract-plugin`插件。
 
-```
+```shell
 npm i -D mini-css-extract-plugin
 ```
 
@@ -345,7 +342,7 @@ module.exports = {
 
 进行打包时css文件会单独到处，并在html中引入。
 
-### 构建导出目录结构
+## 构建导出目录结构
 
 修改`webpack.config.js`，直接在导出部分添加路径即可。
 
@@ -386,11 +383,11 @@ module.exports = {
 };
 ```
 
-### 配置开发服务器
+## 配置开发服务器
 
 安装插件`webpack-dev-server`。
 
-```
+```shell
 npm i -D webpack-dev-server
 ```
 
@@ -462,11 +459,11 @@ module.exports = {
 };
 ```
 
-### 配置css预处理器
+## 配置css预处理器
 
 安装`less`和`less-loader`。
 
-```
+```shell
 npm i -D less less-loader
 ```
 
@@ -529,5 +526,254 @@ import './main.css'
 // [1]
 import './test.less'
 console.log("home");
+```
+
+## 图片处理
+
+安装`file-loader`。
+
+```shell
+npm i -D file-loader
+```
+
+在`webpack.config.js`中配置规则。
+
+```js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const dist = path.join(__dirname, '..', 'dist');
+
+module.exports = {
+    entry: {
+        main: './src/home.js',
+    },
+    output: {
+        path: dist,
+        filename: 'js/[name].[chunkHash:8].js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+            },
+            // [1]
+            {
+                test: /\.(png|jpe?g|gif|jfif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+                options: {
+                    name: '[path][name].[ext]',
+                }
+            },
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "模版测试",
+            template: "public/home.html"
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[chunkHash:8].css'
+        })
+    ],
+    devServer: {
+        port: 3000,
+        open: true
+    }
+};
+```
+
+## 字体处理
+
+同样使用`file-loader`。在`webpack.config.js`中添加配置。
+
+```js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const dist = path.join(__dirname, '..', 'dist');
+
+module.exports = {
+    entry: {
+        main: './src/home.js',
+    },
+    output: {
+        path: dist,
+        filename: 'js/[name].[chunkHash:8].js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif|jfif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: 'static/images/[name].[ext]',
+                    publicPath: '/'
+                }
+            },
+            // [1]
+            {
+                test: /\.(eot|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'static/fonts/[name].[ext]',
+                    publicPath: '/'
+                }
+            },
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "模版测试",
+            template: "public/home.html"
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'static/css/[name].[chunkHash:8].css'
+        })
+    ],
+    devServer: {
+        port: 3000,
+        open: true
+    }
+};
+```
+
+修改less。
+
+```less
+@mainColor: aliceblue;
+.textHover(@origin: aqua, @hover: #44cccc) {
+  color: @origin;
+  &:hover {
+    color: @hover;
+  }
+}
+
+// [1]
+@font-face {
+  font-family: FFXIV_Lodestone_SSF;
+  src: url("assets/fonts/FFXIV_Lodestone_SSF.woff") format('woff');
+}
+body {
+  color: @mainColor;
+
+  h1 {
+    color: coral;
+  }
+
+  #text1 {
+    .textHover;
+  }
+
+  #text2 {
+    .textHover(pink, #dda0ba);
+  }
+  
+  // [2]
+  #text3 {
+    font-family: FFXIV_Lodestone_SSF, serif;
+  }
+}
+```
+
+## 配置babel
+
+babel可以把ES2015及更新版本的js转换为向前兼容的js，也支持转换jsx。
+
+安装`babel-loader`。
+
+```shell
+npm i -D babel-loader @babel/core @babel/preset-env
+```
+
+在`webpack.config.js`中添加规则。
+
+```js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const dist = path.join(__dirname, '..', 'dist');
+
+module.exports = {
+    entry: {
+        main: './src/home.js',
+    },
+    output: {
+        path: dist,
+        filename: 'js/[name].[chunkHash:8].js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif|jfif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: 'static/images/[name].[ext]',
+                    publicPath: '/'
+                }
+            },
+            {
+                test: /\.(eot|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'static/fonts/[name].[ext]',
+                    publicPath: '/'
+                }
+            },
+            // [1]
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "模版测试",
+            template: "public/home.html"
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'static/css/[name].[chunkHash:8].css'
+        })
+    ],
+    devServer: {
+        port: 3000,
+        open: true
+    }
+};
 ```
 
