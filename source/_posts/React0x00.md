@@ -40,9 +40,9 @@ ReactDOM.render(
 );
 ```
 
-## 创建组件
+# 创建组件
 
-使用箭头函数。
+## 箭头函数
 
 ```jsx
 import React from 'react'
@@ -56,6 +56,105 @@ ReactDOM.render(
     document.querySelector('#root')
 );
 ```
+
+## 类
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+class Ele extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>class app</h1>
+                <p>{this.props.title}</p>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <Ele title="arg"/>,
+    document.querySelector('#root')
+);
+```
+
+### 组件嵌套
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const Title = () => <h1>app title</h1>;
+
+class Ele extends React.Component {
+    render() {
+        return (
+            <div>
+                <Title />
+                <p>{this.props.title}</p>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <Ele title="test arg"/>,
+    document.querySelector('#root')
+);
+```
+
+# 组件样式
+
+## 使用js
+
+```jsx
+const Title = () => <h1 style={{color: '#0099ff'}}>app title</h1>;
+```
+
+## 使用class
+
+```css
+.blue-title {
+    color: #0099ff;
+}
+```
+
+```jsx
+import './index.css'
+
+const Title = () => <h1 className="blue-title">app title</h1>;
+```
+
+## 使用第三方库classnames
+
+安装。
+
+```shell
+npm i -D classnames
+```
+
+```css
+.blue-title {
+    color: #0099ff;
+}
+.red-title {
+    color: #ff6666;
+}
+.bg {
+    background-color: antiquewhite;
+}
+```
+
+```jsx
+import './index.css'
+import classNames from 'classnames'
+
+const Title = () => <h1 className={classNames('bg', {'blue-title': true, 'red-title': false})}>app title</h1>;
+```
+
+
 
 
 
